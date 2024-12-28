@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -49,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.grey,
                       spreadRadius: 0.2,
                       blurRadius: 1,
                       offset: Offset(0, 1),
@@ -85,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.grey,
                       spreadRadius: 0.2,
                       blurRadius: 1,
                       offset: Offset(0, 1),
@@ -131,7 +132,30 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 20,
                   ),
                 )
+              ),
+              SizedBox(height: 35),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Don\'t have an account? ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,),
+                    ),
+                    TextSpan(
+                      text: 'Sign Up',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                      // Code dibawah untuk membuat Kalimat Sign up menjadi clickable
+                      // recognizer: TapGestureRecognizer(
+                      //   ..onTap = (){}
+                      // )
+                    ),
+                  ],
                 )
+              )
             ],
           ),
         ),
