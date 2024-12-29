@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/list_bus.dart';
 
 class BotNavbar extends StatefulWidget {
   const BotNavbar({super.key});
@@ -14,7 +15,7 @@ class _BotNavbarState extends State<BotNavbar> {
 
   static const List<Widget> _pages = <Widget>[
     Dashboard(),
-    Text('QR Code'),
+    ListBus(),
     Text('Profile'),
   ];
 
