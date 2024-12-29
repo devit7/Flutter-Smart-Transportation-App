@@ -44,7 +44,11 @@ class _BotNavbarState extends State<BotNavbar> {
                       width: 120.0,
                       height: 50.0,
                       child: TextButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          setState(() {
+                            _selectedIndex = 0;
+                          });
+                        },
                         style: TextButton.styleFrom(backgroundColor: Color.fromARGB(255, 68, 87, 118)), 
                         child: Text("Home", style: TextStyle(color: Colors.white),)),
                     )
@@ -60,7 +64,11 @@ class _BotNavbarState extends State<BotNavbar> {
                       width: 70.0,
                       height: 70.0,
                       child: IconButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          setState(() {
+                            _selectedIndex = 1;
+                          });
+                        }, 
                         icon: Icon(Icons.qr_code))
                     )
                   ),
@@ -70,7 +78,11 @@ class _BotNavbarState extends State<BotNavbar> {
                       width: 120.0,
                       height: 50.0,
                       child: TextButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          setState(() {
+                            _selectedIndex = 2;
+                          });
+                        },
                         style: TextButton.styleFrom(backgroundColor: Color.fromARGB(255, 68, 87, 118)), 
                         child: Text("Profile", style: TextStyle(color: Colors.white),)),
                     )
