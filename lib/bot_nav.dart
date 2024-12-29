@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/dashboard.dart';
 
 class BotNavbar extends StatefulWidget {
   const BotNavbar({super.key});
@@ -8,9 +9,25 @@ class BotNavbar extends StatefulWidget {
 }
 
 class _BotNavbarState extends State<BotNavbar> {
+
+  int _selectedIndex = 0;
+
+  static const List<Widget> _pages = <Widget>[
+    Dashboard(),
+    Text('QR Code'),
+    Text('Profile'),
+  ];
+
+  void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         child: Stack(
           // fit: StackFit.expand,
@@ -90,6 +107,7 @@ class _BotNavbarState extends State<BotNavbar> {
                 ],
               ),
             )
+
           ],
         ),
       ),

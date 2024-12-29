@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/bot_nav.dart';
 import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/login_page.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Dashboard(),
+      home: const BotNavbar(),
     );
   }
 }
