@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tugas_akhir/bot_nav.dart';
 import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/login_page.dart';
-import 'package:tugas_akhir/register_page.dart';
 import 'package:tugas_akhir/welcome_page.dart';
 
 void main() {

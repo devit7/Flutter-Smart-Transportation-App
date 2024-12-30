@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/edit_profile.dart';
+import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/list_bus.dart';
+import 'package:tugas_akhir/login_page.dart';
 
 class BotNavbar extends StatefulWidget {
   const BotNavbar({super.key});
@@ -15,20 +18,16 @@ class _BotNavbarState extends State<BotNavbar> {
 
   static const List<Widget> _pages = <Widget>[
     Dashboard(),
-    ListBus(),
-    Text('Profile'),
+    HistoryJourney(),
+    EditProfile(),
   ];
-
-  void _onItemTapped(int index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: Center(
+        child: _pages.elementAt(_selectedIndex),
+      ),
       bottomNavigationBar: Container(
         child: Stack(
           // fit: StackFit.expand,
