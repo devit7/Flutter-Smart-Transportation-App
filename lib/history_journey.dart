@@ -13,12 +13,6 @@ class _HistoryJourneyState extends State<HistoryJourney> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('History Journey'),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        // ),
       ),
       body: ListView(
         children: const [
@@ -74,7 +68,10 @@ class JourneyCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Date : $date'),
+            Text(
+              'Date : $date',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,19 +80,31 @@ class JourneyCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.directions_bus),
                     const SizedBox(width: 8),
-                    Text(busNumber),
+                    Text(
+                      busNumber,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
-                Text(fare),
+                Text(
+                  fare,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(startStop),
+                Text(
+                  startStop,
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
                 const Icon(Icons.more_horiz),
-                Text(endStop),
+                Text(
+                  endStop,
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
               ],
             ),
           ],
