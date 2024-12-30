@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/bot_nav.dart';
-import 'package:tugas_akhir/dashboard.dart';
-import 'package:tugas_akhir/login_page.dart';
+import 'history_journey.dart';
+import 'bot_nav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,12 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      debugShowCheckedModeBanner: false,
-      // initialRoute: '/',
-      // routes:{
-      //   '/':(context)=>Dashboard(),
-      // },
-      home: BotNavbar(),
+      home: const BotNavbar(),
     );
   }
 }
