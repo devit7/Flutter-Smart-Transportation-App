@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/edit_profile.dart';
+import 'package:tugas_akhir/history_journey.dart';
+import 'package:tugas_akhir/list_bus.dart';
 import 'package:tugas_akhir/login_page.dart';
 
 class BotNavbar extends StatefulWidget {
@@ -13,17 +16,17 @@ class _BotNavbarState extends State<BotNavbar> {
 
   int _selectedIndex = 0;
 
-  static const List<Widget> pages = <Widget>[
+  static const List<Widget> _pages = <Widget>[
     Dashboard(),
-    Text("qr"),
-    Text("profil")
+    HistoryJourney(),
+    EditProfile(),
   ];
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: pages.elementAt(_selectedIndex),
+        child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
         child: Stack(
