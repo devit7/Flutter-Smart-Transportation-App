@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/login_page.dart';
 
 class BotNavbar extends StatefulWidget {
   const BotNavbar({super.key});
@@ -8,9 +10,21 @@ class BotNavbar extends StatefulWidget {
 }
 
 class _BotNavbarState extends State<BotNavbar> {
+
+  int _selectedIndex = 0;
+
+  static const List<Widget> pages = <Widget>[
+    Dashboard(),
+    Text("qr"),
+    Text("profil")
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Center(
+        child: pages.elementAt(_selectedIndex),
+      ),
       bottomNavigationBar: Container(
         child: Stack(
           // fit: StackFit.expand,

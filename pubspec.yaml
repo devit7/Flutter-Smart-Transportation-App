@@ -64,6 +64,7 @@ flutter:
   assets:
     - assets/images/logo_busstop.svg
     - assets/images/yelan.jpg
+    - assets/images/logo_paper_fill.svg
   #   - images/a_dot_ham.jpeg
 
   fonts:
@@ -71,6 +72,7 @@ flutter:
       fonts:
         - asset: assets/fonts/HankenGrotesk-VariableFont_wght.ttf
         - asset: assets/fonts/HankenGrotesk-Italic-VariableFont_wght.ttf
+        
           style: italic
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
