@@ -13,7 +13,7 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Profile"),
-      ),
+      ),            
       body: SingleChildScrollView(
         child: Column(
           children: [
