@@ -190,11 +190,11 @@ class _EditProfileState extends State<EditProfile> {
                                     onPressed: () {},
                                     child: ElevatedButton(
                                         onPressed: () {},
-                                        child: Text("Click to replace"),
                                         style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(10)))),
+                                                    BorderRadius.circular(10))),
+                                        child: Text("Click to replace")),
                                   )
                                 ],
                               ),
@@ -214,14 +214,14 @@ class _EditProfileState extends State<EditProfile> {
                               width: 170,
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Text(
-                                  "Cancel",
-                                  style: TextStyle(color: Colors.white),
-                                ),
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10))),
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -229,12 +229,12 @@ class _EditProfileState extends State<EditProfile> {
                               width: 170,
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Text("Save Change",
-                                    style: TextStyle(color: Colors.white)),
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.pink,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10))),
+                                child: Text("Save Change",
+                                    style: TextStyle(color: Colors.white)),
                               ),
                             ),
                           ],
