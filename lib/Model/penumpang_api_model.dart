@@ -26,7 +26,7 @@ class PenumpangApiModel {
         email: data["email"],
         noTelp: data["noTelp"],
         alamat: data["alamat"],
-        img: data["img"],);
+        img: data["img"],); 
   }
 }
 
