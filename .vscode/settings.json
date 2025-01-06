@@ -1,3 +1,6 @@
 {
-	"cmake.sourceDirectory": "F:/learning-telu-sby/semester-5/pemrograman-mobile/teori/UAS/Flutter-Smart-Transportation-App/linux"
+  "cmake.sourceDirectory": "F:/learning-telu-sby/semester-5/pemrograman-mobile/teori/UAS/Flutter-Smart-Transportation-App/linux",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true
 }
