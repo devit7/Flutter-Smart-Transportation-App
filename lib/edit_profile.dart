@@ -84,7 +84,7 @@ class _EditProfileState extends State<EditProfile> {
                     );
         
                     return Column(
-                      spacing: 20,
+                      // spacing: 20,
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -207,7 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                         // Button cancel and Save Change
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 30,
+                          // spacing: 30,
                           children: [
                             SizedBox(
                               height: 45,
