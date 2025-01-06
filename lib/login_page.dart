@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tugas_akhir/DB/penumpang_api.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,8 +13,36 @@ class _LoginPageState extends State<LoginPage> {
   @override
   
   String busStopLogo = 'assets/images/logo_busstop.svg';
-
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
   @override
+
+  void _handleLogin() {
+    String email = _usernameController.text;
+    String password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      _showMessage('jangan lupa isi email and password ya!');
+      return;
+  }
+    setState(() {
+      _isLoading = true;
+    });
+    if(email == "admin" && password == "admin"){
+      _showMessage('Login Berhasil!');
+    } else {
+      _showMessage('email atau password salah!');
+    }
+  }
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -116,7 +145,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 35),
               ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

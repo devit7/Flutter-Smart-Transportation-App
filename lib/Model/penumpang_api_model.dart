@@ -6,6 +6,8 @@ class PenumpangApiModel {
   String? password;
   String? email;
   String? noTelp;
+  String? alamat;
+  String? img;
 
   PenumpangApiModel({
     
@@ -13,11 +15,13 @@ class PenumpangApiModel {
     required this.name, 
     required this.password, 
     required this.email , 
-    required this.noTelp});
+    required this.noTelp,
+    required this.alamat,
+    required this.img});
 
   factory PenumpangApiModel.fromJson(Map<String, dynamic>json){
     final data = json['data'];
-    return PenumpangApiModel(id: data["id"].toString(), name: data["name"].toString(), password: json["password"], email: json["email"], noTelp: json["noTelp"]);
+    return PenumpangApiModel(id: data["id"].toString(), name: data["name"].toString(), password: json["password"], email: json["email"], noTelp: json["noTelp"], alamat: json["alamat"], img: json["img"]);
   }
 }
 
