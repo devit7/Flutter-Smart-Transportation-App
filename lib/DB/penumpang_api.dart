@@ -17,6 +17,16 @@ class PenumpangApi {
       return null;
     }
   }
-  
+
+  Future<dynamic> login({required String email, required String password}) async {
+    var url = Uri.parse("$baseUrl/login");
+    var response = await client.post(url, body: {"email": email, "password": password});
+    if(response.statusCode == 200){
+      // print(response.body);
+      return PenumpangApiModel.fromJson(jsonDecode(response.body));
+    }else{
+      return null;
+    }
+  }
 
 }
