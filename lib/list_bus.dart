@@ -17,7 +17,7 @@ class _ListBusState extends State<ListBus> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
         child: Column(
-          spacing: 10,
+          // spacing: 10,
           children: [
             // search bar
             Container(
