@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
                       ClipOval(
                         child:
                           Image.asset(
-                          "assets/images/yelan.jpg",
+                          penumpang.img,
                           fit: BoxFit.cover,
                           width: 80,)
                       ),
@@ -73,6 +73,7 @@ class _DashboardState extends State<Dashboard> {
                                 fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,),
+                              //Nama Penumpang
                             Text(penumpang.name ?? "noname",
                               style: TextStyle(
                                 fontFamily: 'FigtreeBold',
@@ -98,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Row(
                   children: [
                     Icon(Icons.location_on, size: 30,color: Color.fromARGB(255, 223, 37, 96),),
-                    Text("Surabaya", 
+                    Text(penumpang.alamat, 
                     style: TextStyle(
                       fontFamily: 'FigtreeBold',
                       fontWeight: FontWeight.bold,
@@ -135,7 +136,7 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Icon(Icons.person),
-                        Text("Tes",
+                        Text(penumpang.name,
                           style: TextStyle(
                             fontFamily: "FigtreeBold",
                             fontSize: 17,
@@ -146,7 +147,7 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Icon(Icons.phone),
-                        Text("085745056220",
+                        Text(penumpang.noTelp,
                         style: TextStyle(
                             fontFamily: "FigtreeReguler",
                             fontSize: 17,
@@ -157,7 +158,7 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Icon(Icons.home),
-                        Text("Jl. Gundih",
+                        Text(penumpang.alamat,
                         style: TextStyle(
                             fontFamily: "FigtreeReguler",
                             fontSize: 17,
