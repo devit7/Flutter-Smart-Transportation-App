@@ -17,6 +17,22 @@ class PenumpangApi {
       return null;
     }
   }
+
+  Future<dynamic> update({required String id, required PenumpangApiModel penumpangApiModel}) async {
+    var url = Uri.parse("$baseUrl/$id");
+    var response = await client.put(url, body: {
+      "name": penumpangApiModel.name,
+      "email": penumpangApiModel.email,
+      "phone": penumpangApiModel.noTelp,
+      "address": penumpangApiModel.alamat,
+    });
+    if(response.statusCode == 200){
+      print(response.body);
+      return PenumpangApiModel.fromJson(jsonDecode(response.body));
+    }else{
+      return null;
+    }
+  }
   
 
 }
