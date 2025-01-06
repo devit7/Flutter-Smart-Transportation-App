@@ -40,9 +40,10 @@ class _DashboardState extends State<Dashboard> {
               return const Center(child: Text('No Data Found'));
             }
 
-            final PenumpangApiModel penumpang = snapshot.data as PenumpangApiModel;
+            final penumpang = snapshot.data;
+            print(penumpang.toString());
+          
           return Column(
-            
             children: [
               //Profile
               Container(
@@ -72,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
                                 fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,),
-                            Text("${penumpang.name}!",
+                            Text(penumpang.name ?? "noname",
                               style: TextStyle(
                                 fontFamily: 'FigtreeBold',
                                 fontSize: 15,

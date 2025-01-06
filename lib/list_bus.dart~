@@ -101,7 +101,7 @@ class _ListBusState extends State<ListBus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List Bus'),
+        title: Text('List Bus Surabaya'),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),

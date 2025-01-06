@@ -11,8 +11,8 @@ class PenumpangApi {
     var url = Uri.parse("$baseUrl/$id");
     var response = await client.get(url);
     if(response.statusCode == 200){
-      print(response.body);
-      return penumpangApiModelFromJson(response.body);
+      // print(response.body);
+      return PenumpangApiModel.fromJson(jsonDecode(response.body));
     }else{
       return null;
     }
