@@ -21,7 +21,7 @@ class _DashboardState extends State<Dashboard> {
   }
   void getPenumpang() {
     setState(() {
-      futureDashboard = penumpangApi.getById(id: "2");
+      futureDashboard = penumpangApi.getById(id: "7");
     });
   }
 
@@ -55,8 +55,8 @@ class _DashboardState extends State<Dashboard> {
                       //Avatar
                       ClipOval(
                         child:
-                          Image.asset(
-                          penumpang.img,
+                          Image.network(
+                          "https://apibus.rngrelic.my.id/storage/"+penumpang.img,
                           fit: BoxFit.cover,
                           width: 80,)
                       ),
@@ -226,22 +226,6 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       child: IconButton(onPressed: (){}, icon: Icon(Icons.calendar_month, size: 50,)),
                     ),
-                    Container(
-                      margin: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 2,
-                            offset: Offset(1, 3)
-                          )
-                        ]
-                      ),
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.map_outlined, size: 50,)),
-                    ),
-                    
                   ],
                 ),
               )
