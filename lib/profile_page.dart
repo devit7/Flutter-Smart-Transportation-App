@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
+import 'package:tugas_akhir/edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -129,7 +130,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(width: 5),
                                 Flexible(
                                   child: OutlinedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile()));
+                                    },
                                     style: OutlinedButton.styleFrom(
                                       minimumSize: const Size(340, 60),
                                       shape: RoundedRectangleBorder(
