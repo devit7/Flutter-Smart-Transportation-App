@@ -8,7 +8,6 @@ class PenumpangApiModel {
   String? noTelp;
   String? alamat;
   String? img;
-
   PenumpangApiModel(
       {required this.id,
       required this.name,
@@ -23,11 +22,11 @@ class PenumpangApiModel {
     return PenumpangApiModel(
         id: data["id"].toString(),
         name: data["name"].toString(),
-        password: json["password"],
-        email: json["email"],
-        noTelp: json["noTelp"],
-        alamat: json["alamat"],
-        img: json["img"]);
+        password: data["password"],
+        email: data["email"],
+        noTelp: data["noTelp"],
+        alamat: data["alamat"],
+        img: data["img"],);
   }
 }
 

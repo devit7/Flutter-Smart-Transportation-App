@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/bot_nav.dart';
-import 'package:tugas_akhir/coba_icon.dart';
-import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/edit_profile.dart';
-import 'package:tugas_akhir/history_journey.dart';
-// import 'package:tugas_akhir/welcome_page.dart';
-import 'package:tugas_akhir/list_bus.dart';
-import 'package:tugas_akhir/profile_page.dart';
-import 'package:tugas_akhir/report_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
+import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -9,13 +13,15 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  File? image;
+
   Future<dynamic>? futureDashboard;
   final penumpangApi = PenumpangApi();
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController noTelpController = TextEditingController();
-    final TextEditingController alamatController = TextEditingController();
-    final TextEditingController imgController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController noTelpController = TextEditingController();
+  final TextEditingController alamatController = TextEditingController();
+  final TextEditingController imgController = TextEditingController();
 
   @override
   void initState() {
@@ -75,9 +81,11 @@ class _EditProfileState extends State<EditProfile> {
                               shape: BoxShape.circle),
                           child: ClipOval(
                               child: Image.network(
-                                'https://apibus.rngrelic.my.id/storage/'+penumpang.img!,
+                            'https://apibus.rngrelic.my.id/storage/' +
+                                penumpang.img!,
                             fit: BoxFit.cover,
                             width: 90,
+                            height: 90,
                           )),
                         ),
                         //Nickname
@@ -226,23 +234,37 @@ class _EditProfileState extends State<EditProfile> {
                                                   255, 26, 42, 69),
                                               shape: BoxShape.circle),
                                           child: ClipOval(
-                                              child: Image.asset(
-                                            "assets/images/wife.jpg",
-                                            fit: BoxFit.cover,
-                                            width: 70,
-                                          )),
+                                            child: image !=
+                                                    null // Jika gambar sudah dipilih
+                                                ? Image.file(
+                                                    image!,
+                                                    fit: BoxFit.cover,
+                                                    width: 70,
+                                                    height: 70,
+                                                  )
+                                                : Image.network(
+                                                    'https://apibus.rngrelic.my.id/storage/' +
+                                                        penumpang.img!,
+                                                    fit: BoxFit.cover,
+                                                    width: 70,
+                                                    height: 70,
+                                                  ),
+                                          ),
                                         ),
                                         TextButton(
-                                          onPressed: () {},
+                                          onPressed:
+                                              pickImage, // Panggil fungsi untuk memilih gambar
                                           child: ElevatedButton(
-                                              onPressed: () {},
-                                              style: ElevatedButton.styleFrom(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10))),
-                                              child: Text("Click to replace")),
-                                        )
+                                            onPressed: pickImage,
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            child: Text("Click to replace"),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -276,7 +298,36 @@ class _EditProfileState extends State<EditProfile> {
                                     height: 45,
                                     width: 170,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        /* if (image == null) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    "Pilih gambar terlebih dahulu")),
+                                          );
+                                          return;
+                                        } */
+
+                                        await penumpangApi.update(
+                                          id: "2",
+                                          name: nameController.text,
+                                          noTelp: noTelpController.text,
+                                          alamat: alamatController.text,
+                                          img: image, // Kirim file gambar
+                                          email: emailController.text,
+                                        );
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content:
+                                                  Text("Data Berhasil Diubah")),
+
+                                        );
+                                        // refresh data
+                                        getPenumpang();
+                                      },
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.pink,
                                           shape: RoundedRectangleBorder(
@@ -301,4 +352,17 @@ class _EditProfileState extends State<EditProfile> {
       ),
     );
   }
+
+Future<void> pickImage() async {
+    final imagePicker =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (imagePicker == null) return;
+
+    final imageTemp = File(imagePicker.path);
+    setState(() {
+      image = imageTemp;
+    });
+  }
+
 }
