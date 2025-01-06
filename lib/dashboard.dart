@@ -73,6 +73,7 @@ class _DashboardState extends State<Dashboard> {
                                 fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,),
+                              //Nama Penumpang
                             Text(penumpang.name ?? "noname",
                               style: TextStyle(
                                 fontFamily: 'FigtreeBold',
