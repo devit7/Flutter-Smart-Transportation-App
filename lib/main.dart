@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/bot_nav.dart';
 import 'package:tugas_akhir/coba_icon.dart';
 import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/edit_profile.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ProfilePage(),
+      home: EditProfile(),
     );
   }
 }

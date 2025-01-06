@@ -23,8 +23,9 @@ class PenumpangApi {
     var response = await client.put(url, body: {
       "name": penumpangApiModel.name,
       "email": penumpangApiModel.email,
-      "phone": penumpangApiModel.noTelp,
-      "address": penumpangApiModel.alamat,
+      "noTelp": penumpangApiModel.noTelp,
+      "alamat": penumpangApiModel.alamat,
+      "img": penumpangApiModel.img
     });
     if(response.statusCode == 200){
       print(response.body);
@@ -33,6 +34,7 @@ class PenumpangApi {
       return null;
     }
   }
+  
   
 
 }
