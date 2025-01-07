@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:tugas_akhir/DB/report_api.dart'; // Import your API service
 
 class AddReportPage extends StatefulWidget {
   const AddReportPage({super.key});
@@ -12,6 +13,9 @@ class AddReportPage extends StatefulWidget {
 class _AddReportPageState extends State<AddReportPage> {
   DateTime? _selectedDate;
   File? _selectedImage;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final ReportApi _reportApi = ReportApi(); // Create an instance of ReportApi
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -36,6 +40,28 @@ class _AddReportPageState extends State<AddReportPage> {
       setState(() {
         _selectedImage = File(pickedFile.path);
       });
+    }
+  }
+
+  Future<void> _submitReport() async {
+    if (_selectedDate == null ||
+        _titleController.text.isEmpty ||
+        _descriptionController.text.isEmpty) {
+      // Show error message
+      return;
+    }
+
+    var response = await _reportApi.submitReport(
+      title: _titleController.text,
+      description: _descriptionController.text,
+      date: _selectedDate!,
+      image: _selectedImage,
+    );
+
+    if (response != null && response['success'] == true) {
+      // Handle success (e.g., show a success message, navigate back, etc.)
+    } else {
+      // Handle failure (e.g., show an error message)
     }
   }
 
@@ -85,6 +111,7 @@ class _AddReportPageState extends State<AddReportPage> {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: _titleController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 hintText: "Add Report Title",
@@ -95,6 +122,7 @@ class _AddReportPageState extends State<AddReportPage> {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: _descriptionController,
               textAlign: TextAlign.center,
               maxLines: 5,
               decoration: InputDecoration(
@@ -129,9 +157,7 @@ class _AddReportPageState extends State<AddReportPage> {
             ],
             const Spacer(),
             ElevatedButton(
-              onPressed: () {
-                // Submit report logic here
-              },
+              onPressed: _submitReport,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink.shade400,
                 minimumSize: const Size(double.infinity, 48),
