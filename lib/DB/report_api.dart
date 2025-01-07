@@ -11,24 +11,24 @@ class ReportApi {
   ReportApi({http.Client? client}) : client = client ?? http.Client();
 
   Future<dynamic> submitReport({
-    required String title,
-    required String description,
-    required DateTime date,
-    required File? image,
+    required String judul,
+    required String deskripsi,
+    required DateTime tanggal,
+    required File? file_media,
   }) async {
     var url = Uri.parse(baseUrl);
     try {
       var request = http.MultipartRequest('POST', url);
 
       // Add fields to the request
-      request.fields['title'] = title;
-      request.fields['description'] = description;
-      request.fields['date'] = date.toIso8601String();
+      request.fields['title'] = judul;
+      request.fields['description'] = deskripsi;
+      request.fields['date'] = tanggal.toIso8601String();
 
       // Add image file if it exists
-      if (image != null) {
+      if (file_media != null) {
         request.files
-            .add(await http.MultipartFile.fromPath('image', image.path));
+            .add(await http.MultipartFile.fromPath('image', file_media.path));
       }
 
       // Send the request

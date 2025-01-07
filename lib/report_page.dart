@@ -52,10 +52,10 @@ class _AddReportPageState extends State<AddReportPage> {
     }
 
     var response = await _reportApi.submitReport(
-      title: _titleController.text,
-      description: _descriptionController.text,
-      date: _selectedDate!,
-      image: _selectedImage,
+      judul: _titleController.text,
+      deskripsi: _descriptionController.text,
+      tanggal: _selectedDate!,
+      file_media: _selectedImage,
     );
 
     if (response != null && response['success'] == true) {
