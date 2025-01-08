@@ -252,9 +252,11 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     //HALTE ITEM!!!
                     Container(
+                      margin: EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)
+                        borderRadius: BorderRadius.circular(20),
+                        
                       ),
                       child: Row(
                         children: [
