@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/bot_nav.dart';
 import 'package:tugas_akhir/edit_profile.dart';
-import 'package:tugas_akhir/list_bus.dart';
+import 'package:tugas_akhir/list_bus_api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: BotNavbar(),
-      home: ListBus(),
+      home: ListBusApi(),
     );
   }
 }
