@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
+import 'package:tugas_akhir/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,45 +20,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final PenumpangApi _apiHandler = PenumpangApi();
-  
-  // bool _isLoading = false;
+
   @override
 
-
-  Future<void> _handleLogin() async {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    if (email.isEmpty || password.isEmpty) {
-      _showMessage('jangan lupa isi email and password ya!');
-      return;
-  }
-    // setState(() {
-    //   _isLoading = true;
-    // });
-    try {
-      dynamic result = await _apiHandler.login(email: email, password: password);
-
-      // setState(() {
-      //   _isLoading = false;
-      // });
-
-      if (result != null) {
-        _showMessage('Login successful!');
-        // Navigate to the next page or perform your login action
-        print('User Data: ${result}');
-        // Example of navigation:
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-      } else {
-        _showMessage("Invalid email : $email or password : $password");
-      }
-    } catch (e) {
-      // setState(() {
-      //   _isLoading = false;
-      // });
-      _showMessage('An error occurred: $e');
-    }
-  }
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -154,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: TextField(
                   controller: _passwordController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
@@ -191,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                     // Example of navigation:
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
                   } else {
-                    _showMessage("Invalid email : $email or password : $password");
+                    _showMessage("Invalid email or password ");
                   };
                 },
                 style: ElevatedButton.styleFrom(
@@ -225,10 +192,10 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         color: Colors.blue,
                       ),
-                      // Code dibawah untuk membuat Kalimat Sign up menjadi clickable
-                      // recognizer: TapGestureRecognizer(
-                      //   ..onTap = (){}
-                      // )
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                        },
                     ),
                   ],
                 )

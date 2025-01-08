@@ -9,6 +9,7 @@ class ListBus extends StatefulWidget {
 }
 
 class _ListBusState extends State<ListBus> {
+
   // Function to show modal
   void showBusDetails(BuildContext context, Bus bus) {
     showDialog(
@@ -23,7 +24,10 @@ class _ListBusState extends State<ListBus> {
           children: [
             Text(
               bus.name,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.blue[900]),
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue[900]),
             ),
             SizedBox(height: 10),
             Container(
@@ -50,7 +54,8 @@ class _ListBusState extends State<ListBus> {
                   style: TextStyle(fontSize: 16),
                 ),
               ],
-            ),Row(
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -70,15 +75,15 @@ class _ListBusState extends State<ListBus> {
             ),
             SizedBox(height: 10),
             ...bus.destination.map((stop) => Padding(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(stop["name"] ?? "", style: TextStyle(fontSize: 16)),
-                  Text(stop["time"] ?? "", style: TextStyle(fontSize: 16)),
-                ],
-              ),
-            )),
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(stop["name"] ?? "", style: TextStyle(fontSize: 16)),
+                      Text(stop["time"] ?? "", style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                )),
             SizedBox(height: 20),
             Center(
               child: ElevatedButton(
@@ -86,9 +91,10 @@ class _ListBusState extends State<ListBus> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[900],
                 ),
-                child: Text("Kembali",style: TextStyle(
-                    color: Colors.white
-                ),),
+                child: Text(
+                  "Kembali",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],
@@ -131,7 +137,8 @@ class _ListBusState extends State<ListBus> {
                     child: Card(
                       elevation: 10.0,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 25.0),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 25.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -153,8 +160,9 @@ class _ListBusState extends State<ListBus> {
                                       // Titik abu-abu di tengah
                                       ...List.generate(
                                         4,
-                                            (index) => Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                                        (index) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 2.0),
                                           child: CircleAvatar(
                                             radius: 3.0,
                                             backgroundColor: Colors.grey[400],
@@ -177,7 +185,9 @@ class _ListBusState extends State<ListBus> {
                                 Icon(Icons.directions_bus, size: 40),
                                 SizedBox(width: 10),
                                 Text(bus.name,
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
                               ],
                             ),
                             Container(
@@ -186,11 +196,14 @@ class _ListBusState extends State<ListBus> {
                               height: 35,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: bus.status == "Available" ? Colors.green : Colors.red,
+                                color: bus.status == "Available"
+                                    ? Colors.green
+                                    : Colors.red,
                               ),
                               child: Text(
                                 bus.status,
-                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ),
                           ],
