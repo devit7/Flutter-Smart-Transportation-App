@@ -35,13 +35,13 @@ class _BotNavbarState extends State<BotNavbar> {
             Container(
               //alignment: Alignment.bottomCenter,
               child: Container(
-                height: 100,
+                height: 80,
               ),
             ),
             Container(
               //alignment: Alignment.bottomCenter,
               child: Container(
-                height: 80,
+                height: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                   color: Color.fromARGB(255, 26, 42, 69),
@@ -55,7 +55,7 @@ class _BotNavbarState extends State<BotNavbar> {
                 children: [
                   //BUTTON HOME
                   Container(
-                    margin: EdgeInsets.only(bottom: 30, left: 20),
+                    margin: EdgeInsets.only(bottom: 20, left: 20),
                     child: SizedBox(
                       width: 120.0,
                       height: 50.0,
@@ -70,7 +70,7 @@ class _BotNavbarState extends State<BotNavbar> {
                     )
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 30),
+                    margin: EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
@@ -89,7 +89,7 @@ class _BotNavbarState extends State<BotNavbar> {
                     )
                   ),
                   Container(
-                    margin: EdgeInsets.only(right: 20, bottom: 30),
+                    margin: EdgeInsets.only(right: 20, bottom: 20),
                     child: SizedBox(
                       width: 120.0,
                       height: 50.0,

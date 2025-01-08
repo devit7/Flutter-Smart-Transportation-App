@@ -95,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               //Lokasi
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(15),
                 child: Row(
                   children: [
                     Icon(Icons.location_on, size: 30,color: Color.fromARGB(255, 223, 37, 96),),
@@ -110,7 +110,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               //Informasi lokasi
               Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 30),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 25),
                 margin: EdgeInsets.only(left: 20, right: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -150,7 +150,7 @@ class _DashboardState extends State<Dashboard> {
                         Text(penumpang.noTelp,
                         style: TextStyle(
                             fontFamily: "FigtreeReguler",
-                            fontSize: 17,
+                            fontSize: 15,
                             // fontWeight: FontWeight.w500
                           ),)
                       ],
@@ -161,7 +161,7 @@ class _DashboardState extends State<Dashboard> {
                         Text(penumpang.alamat,
                         style: TextStyle(
                             fontFamily: "FigtreeReguler",
-                            fontSize: 17,
+                            fontSize: 15,
                             // fontWeight: FontWeight.w500
                           ),)
                       ],
@@ -171,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          margin: EdgeInsets.all(15),
+                          margin: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Color.fromARGB(255, 223, 37, 96)
@@ -186,18 +186,15 @@ class _DashboardState extends State<Dashboard> {
                         )
                       ],
                     ),
-          
-                    
-                    
                   ],
                 ),
               ),
               Container(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.all(20),
+                      margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -209,10 +206,10 @@ class _DashboardState extends State<Dashboard> {
                           )
                         ]
                       ),
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.history_edu, size: 50,)),
+                      child: IconButton(onPressed: (){}, icon: Icon(Icons.history_edu, size: 40,)),
                     ),
                     Container(
-                      margin: EdgeInsets.all(20),
+                      margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -224,7 +221,67 @@ class _DashboardState extends State<Dashboard> {
                           )
                         ]
                       ),
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.calendar_month, size: 50,)),
+                      child: IconButton(onPressed: (){
+                        
+                      }, icon: Icon(Icons.calendar_month, size: 40,)),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.map),
+                              Text("Halte", style: TextStyle(
+                                fontFamily: "FigtreeBold",
+                                fontWeight: FontWeight.bold
+                              ),)
+                            ],
+                          ),
+                          Text("see all")
+                        ],
+                      ),
+                    ),
+                    //HALTE ITEM!!!
+                    Container(
+                      margin: EdgeInsets.only(bottom: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        
+                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset("assets/images/yelan.jpg", 
+                              width: 80,),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset("assets/images/yelan.jpg", 
+                              width: 80,),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),

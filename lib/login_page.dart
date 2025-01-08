@@ -1,5 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tugas_akhir/DB/auth_api.dart';
+import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,11 +13,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  @override
-  
   String busStopLogo = 'assets/images/logo_busstop.svg';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final AuthApi _apiHandler = AuthApi();
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -58,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   ]
                 ),
                 child: TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
@@ -94,6 +114,8 @@ class _LoginPageState extends State<LoginPage> {
                   ]
                 ),
                 child: TextField(
+                  controller: _passwordController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
@@ -116,7 +138,24 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 35),
               ElevatedButton(
-                onPressed: (){},
+                onPressed: () async {
+                  String email = _emailController.text;
+                  String password = _passwordController.text;
+                  dynamic? result = await _apiHandler.login(email: email, password: password);
+                  if (email.isEmpty || password.isEmpty) {
+                    _showMessage('jangan lupa isi email and password ya!');
+                    return;
+                  }
+                  if(result != null){
+                    _showMessage('Login successful!');
+                    // Navigate to the next page or perform your login action
+                    print('User Data: ${result}');
+                    // Example of navigation:
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                  } else {
+                    _showMessage("Invalid email or password ");
+                  };
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -148,10 +187,10 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         color: Colors.blue,
                       ),
-                      // Code dibawah untuk membuat Kalimat Sign up menjadi clickable
-                      // recognizer: TapGestureRecognizer(
-                      //   ..onTap = (){}
-                      // )
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                        },
                     ),
                   ],
                 )
