@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
+import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,26 +15,46 @@ class _LoginPageState extends State<LoginPage> {
   @override
   
   String busStopLogo = 'assets/images/logo_busstop.svg';
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false;
+  final PenumpangApi _apiHandler = PenumpangApi();
+  
+  // bool _isLoading = false;
   @override
 
-  void _handleLogin() {
-    String email = _usernameController.text;
+
+  Future<void> _handleLogin() async {
+    String email = _emailController.text;
     String password = _passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
       _showMessage('jangan lupa isi email and password ya!');
       return;
   }
-    setState(() {
-      _isLoading = true;
-    });
-    if(email == "admin" && password == "admin"){
-      _showMessage('Login Berhasil!');
-    } else {
-      _showMessage('email atau password salah!');
+    // setState(() {
+    //   _isLoading = true;
+    // });
+    try {
+      dynamic result = await _apiHandler.login(email: email, password: password);
+
+      // setState(() {
+      //   _isLoading = false;
+      // });
+
+      if (result != null) {
+        _showMessage('Login successful!');
+        // Navigate to the next page or perform your login action
+        print('User Data: ${result}');
+        // Example of navigation:
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+      } else {
+        _showMessage("Invalid email : $email or password : $password");
+      }
+    } catch (e) {
+      // setState(() {
+      //   _isLoading = false;
+      // });
+      _showMessage('An error occurred: $e');
     }
   }
   void _showMessage(String message) {
@@ -41,6 +63,13 @@ class _LoginPageState extends State<LoginPage> {
         content: Text(message),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -87,6 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                   ]
                 ),
                 child: TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
@@ -123,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                   ]
                 ),
                 child: TextField(
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
@@ -145,8 +176,23 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 35),
               ElevatedButton(
-                onPressed: (){
-
+                onPressed: () async {
+                  String email = _emailController.text;
+                  String password = _passwordController.text;
+                  dynamic? result = await _apiHandler.login(email: email, password: password);
+                  if (email.isEmpty || password.isEmpty) {
+                    _showMessage('jangan lupa isi email and password ya!');
+                    return;
+                  }
+                  if(result != null){
+                    _showMessage('Login successful!');
+                    // Navigate to the next page or perform your login action
+                    print('User Data: ${result}');
+                    // Example of navigation:
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                  } else {
+                    _showMessage("Invalid email : $email or password : $password");
+                  };
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

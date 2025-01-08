@@ -6,6 +6,7 @@ import 'package:tugas_akhir/edit_profile.dart';
 import 'package:tugas_akhir/history_journey.dart';
 // import 'package:tugas_akhir/welcome_page.dart';
 import 'package:tugas_akhir/list_bus.dart';
+import 'package:tugas_akhir/login_page.dart';
 import 'package:tugas_akhir/profile_page.dart';
 import 'package:tugas_akhir/report_page.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BotNavbar(),
+      home: LoginPage(),
     );
   }
 }
