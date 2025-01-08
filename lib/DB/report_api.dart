@@ -5,7 +5,7 @@ import 'package:tugas_akhir/Model/report_api_model.dart'; // Import your model
 
 class ReportApi {
   final String baseUrl =
-      "http://apibus.rngrelic.my.id/admin/laporans"; // Replace with your actual API URL
+      "http://apibus.rngrelic.my.id/api/laporan"; // Replace with your actual API URL
   final http.Client client;
 
   ReportApi({http.Client? client}) : client = client ?? http.Client();
