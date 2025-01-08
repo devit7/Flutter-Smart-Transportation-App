@@ -1,9 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tugas_akhir/DB/penumpang_api.dart';
+import 'package:tugas_akhir/DB/auth_api.dart';
 import 'package:tugas_akhir/dashboard.dart';
-import 'package:tugas_akhir/model/penumpang_api_model.dart';
 import 'package:tugas_akhir/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,14 +13,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  @override
-  
   String busStopLogo = 'assets/images/logo_busstop.svg';
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final PenumpangApi _apiHandler = PenumpangApi();
-
-  @override
+  final AuthApi _apiHandler = AuthApi();
 
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
