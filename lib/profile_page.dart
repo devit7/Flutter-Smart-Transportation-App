@@ -29,7 +29,18 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("My Profile"),
-        backgroundColor: Colors.blueGrey,
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        backgroundColor: Color.fromARGB(255, 26, 42, 69),
+        // Button Back Pada Navbar
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.arrow_back_outlined),
+          color: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
           child: FutureBuilder(
@@ -87,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               textAlign: TextAlign.left,
                             ),
                             Text(
-                              "geovandp@gmail.com",
+                              penumpang.email,
                               style: TextStyle(
                                   fontFamily: 'FigtreeBold',
                                   fontSize: 15,
@@ -118,28 +129,31 @@ class _ProfilePageState extends State<ProfilePage> {
                         return Column(
                           children: [
                             // Button Edit Profile
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.person_rounded,
-                                  size: 35,
+                            SizedBox(
+                              width: 380,
+                              height: 60,
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                  side: BorderSide(
+                                    width: 2.5,
+                                  ),
                                 ),
-                                SizedBox(width: 5),
-                                Flexible(
-                                  child: OutlinedButton(
-                                    onPressed: () {},
-                                    style: OutlinedButton.styleFrom(
-                                      minimumSize: const Size(340, 60),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      side: BorderSide(
-                                        width: 2.5,
-                                      ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.person_rounded,
+                                      color: Colors.black,
+                                      size: 30,
                                     ),
-                                    child: const Text(
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
                                       "Edit Profile",
                                       style: TextStyle(
                                         fontSize: 18,
@@ -147,34 +161,39 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.black,
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            // Button History Report
+                            SizedBox(
+                              width: 380,
+                              height: 60,
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                  side: BorderSide(
+                                    width: 2.5,
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(height: 30),
-                            // Button History Report
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.report_gmailerrorred_outlined,
-                                  size: 35,
-                                ),
-                                SizedBox(width: 5),
-                                Flexible(
-                                  child: OutlinedButton(
-                                    onPressed: () {},
-                                    style: OutlinedButton.styleFrom(
-                                      minimumSize: const Size(340, 60),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      side: BorderSide(
-                                        width: 2.5,
-                                      ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.report_gmailerrorred_outlined,
+                                      color: Colors.black,
+                                      size: 30,
                                     ),
-                                    child: const Text(
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
                                       "History Report",
                                       style: TextStyle(
                                         fontSize: 18,
@@ -182,34 +201,39 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.black,
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            // Button History Journey
+                            SizedBox(
+                              width: 380,
+                              height: 60,
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                  side: BorderSide(
+                                    width: 2.5,
                                   ),
                                 ),
-                              ],
-                              // Button History Journey
-                            ),
-                            SizedBox(height: 30),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.signpost_outlined,
-                                  size: 35,
-                                ),
-                                SizedBox(width: 5),
-                                Flexible(
-                                  child: OutlinedButton(
-                                    onPressed: () {},
-                                    style: OutlinedButton.styleFrom(
-                                      minimumSize: const Size(340, 60),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      side: BorderSide(
-                                        width: 2.5,
-                                      ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.signpost_outlined,
+                                      color: Colors.black,
+                                      size: 30,
                                     ),
-                                    child: const Text(
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
                                       "History Journey",
                                       style: TextStyle(
                                         fontSize: 18,
@@ -217,12 +241,116 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
+                            // Button Edit Profile
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   crossAxisAlignment: CrossAxisAlignment.center,
+                            //   children: [
+                            //     Icon(
+                            //       Icons.person_rounded,
+                            //       size: 35,
+                            //     ),
+                            //     SizedBox(width: 5),
+                            //     Flexible(
+                            //       child: OutlinedButton(
+                            //         onPressed: () {},
+                            //         style: OutlinedButton.styleFrom(
+                            //           minimumSize: const Size(340, 60),
+                            //           shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.circular(0),
+                            //           ),
+                            //           side: BorderSide(
+                            //             width: 2.5,
+                            //           ),
+                            //         ),
+                            //         child: const Text(
+                            //           "Edit Profile",
+                            //           style: TextStyle(
+                            //             fontSize: 18,
+                            //             fontWeight: FontWeight.bold,
+                            //             color: Colors.black,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 30),
+                            // // Button History Report
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   crossAxisAlignment: CrossAxisAlignment.center,
+                            //   children: [
+                            //     Icon(
+                            //       Icons.report_gmailerrorred_outlined,
+                            //       size: 35,
+                            //     ),
+                            //     SizedBox(width: 5),
+                            //     Flexible(
+                            //       child: OutlinedButton(
+                            //         onPressed: () {},
+                            //         style: OutlinedButton.styleFrom(
+                            //           minimumSize: const Size(340, 60),
+                            //           shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.circular(0),
+                            //           ),
+                            //           side: BorderSide(
+                            //             width: 2.5,
+                            //           ),
+                            //         ),
+                            //         child: const Text(
+                            //           "History Report",
+                            //           style: TextStyle(
+                            //             fontSize: 18,
+                            //             fontWeight: FontWeight.bold,
+                            //             color: Colors.black,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            //   // Button History Journey
+                            // ),
+                            // SizedBox(height: 30),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   crossAxisAlignment: CrossAxisAlignment.center,
+                            //   children: [
+                            //     Icon(
+                            //       Icons.signpost_outlined,
+                            //       size: 35,
+                            //     ),
+                            //     SizedBox(width: 5),
+                            //     Flexible(
+                            //       child: OutlinedButton(
+                            //         onPressed: () {},
+                            //         style: OutlinedButton.styleFrom(
+                            //           minimumSize: const Size(340, 60),
+                            //           shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.circular(0),
+                            //           ),
+                            //           side: BorderSide(
+                            //             width: 2.5,
+                            //           ),
+                            //         ),
+                            //         child: const Text(
+                            //           "History Journey",
+                            //           style: TextStyle(
+                            //             fontSize: 18,
+                            //             fontWeight: FontWeight.bold,
+                            //             color: Colors.black,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
-                              height: 45,
+                              height: 50,
                             ),
                             // Button Logout
                             Row(
@@ -234,11 +362,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 206, 14, 0),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10))),
+                                      backgroundColor:
+                                          const Color.fromARGB(255, 206, 14, 0),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
                                     child: Text(
                                       "Logout",
                                       style: TextStyle(
