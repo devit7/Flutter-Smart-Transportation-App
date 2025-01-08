@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/edit_profile.dart';
+import 'package:tugas_akhir/history_journey.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void getPenumpang() {
     setState(() {
-      futureProfile = penumpangApi.getById(id: "2");
+      futureProfile = penumpangApi.getById(id: "9");
     });
   }
 
@@ -37,11 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         backgroundColor: Color.fromARGB(255, 26, 42, 69),
         // Button Back Pada Navbar
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back_outlined),
-          color: Colors.white,
-        ),
+        
       ),
       body: SingleChildScrollView(
           child: FutureBuilder(
@@ -134,7 +131,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 380,
                               height: 60,
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditProfile(),
+                                    ),
+                                  );
+                                },
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -174,7 +178,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 380,
                               height: 60,
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  
+                                },
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -214,7 +220,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 380,
                               height: 60,
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HistoryJourney(),
+                                    ),
+                                  );
+                                },
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),

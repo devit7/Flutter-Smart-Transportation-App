@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/DB/transaksi_history.dart';
+import 'package:tugas_akhir/model/transaksi_hisotry.dart';
 
 class HistoryJourney extends StatefulWidget {
   const HistoryJourney({super.key});
@@ -8,36 +10,65 @@ class HistoryJourney extends StatefulWidget {
 }
 
 class _HistoryJourneyState extends State<HistoryJourney> {
+  Future<dynamic>? transaksiHistory;
+  final transaksiApi = TransaksiHistory();
+
+  @override
+  void initState() {
+    super.initState();
+    getTransaksiUser();
+  }
+
+  void getTransaksiUser() {
+    setState(() {
+      transaksiHistory = transaksiApi.getByIdUser(id: "9");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 26, 42, 69),
         title: const Text('History Journey'),
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: ListView(
-        children: const [
-          JourneyCard(
-            date: '15/8/2024',
-            busNumber: 'Bus 1',
-            fare: 'Rp.12.000',
-            startStop: 'Halte 1',
-            endStop: 'Halte 5',
-          ),
-          JourneyCard(
-            date: '20/2/2024',
-            busNumber: 'Bus 6',
-            fare: 'Rp.12.000',
-            startStop: 'Halte 1',
-            endStop: 'Halte 5',
-          ),
-          JourneyCard(
-            date: '2/1/2024',
-            busNumber: 'Bus 4',
-            fare: 'Rp.12.000',
-            startStop: 'Halte 1',
-            endStop: 'Halte 5',
-          ),
-        ],
+      body: FutureBuilder(
+        future: transaksiHistory,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.data == null) {
+            return const Center(child: Text('No Data Found'));
+          }
+
+          final List<TransaksiHistoryModel> historyTransaksi = snapshot.data;
+          
+          return ListView.separated(
+            itemBuilder: (context, index) {
+              final dataTH = historyTransaksi[index];
+              final bus = dataTH.jadwal?.bus;
+              final halte = dataTH.jadwal?.halte;
+
+              return JourneyCard(
+                date: dataTH.tanggalTransaksi ?? "Unknown Date",
+                busNumber: bus?.namaBus ?? "Unknown Bus",
+                fare: 'Rp.${bus?.harga ?? "0"}',
+                startStop: halte?.namaHalte ?? "Unknown Stop",
+                status: dataTH.statusPenumpang ?? "Unknown Status",
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 5),
+            itemCount: historyTransaksi.length,
+          );
+        },
       ),
     );
   }
@@ -48,7 +79,7 @@ class JourneyCard extends StatelessWidget {
   final String busNumber;
   final String fare;
   final String startStop;
-  final String endStop;
+  final String status;
 
   const JourneyCard({
     super.key,
@@ -56,7 +87,7 @@ class JourneyCard extends StatelessWidget {
     required this.busNumber,
     required this.fare,
     required this.startStop,
-    required this.endStop,
+    required this.status,
   });
 
   @override
@@ -102,8 +133,9 @@ class JourneyCard extends StatelessWidget {
                 ),
                 const Icon(Icons.more_horiz),
                 Text(
-                  endStop,
-                  style: TextStyle(color: Colors.grey[600]),
+                  status,
+                  style: TextStyle(
+                      color: status == 'in' ? Colors.green : Colors.red),
                 ),
               ],
             ),
