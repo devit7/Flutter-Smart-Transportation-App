@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: 800),
         content: Text(message),
       ),
     );
@@ -167,9 +167,10 @@ class _LoginPageState extends State<LoginPage> {
                   if(result != null){
 
                     _showMessage('Login successful!');
+                    // Delay 1.24 seconds
+                    await Future.delayed(Duration(seconds: 1, milliseconds: 240));
+                    // print('User Data: ${result}');
                     // Navigate to the next page or perform your login action
-                    print('User Data: ${result}');
-                    // Example of navigation:
                     Navigator.push(context, MaterialPageRoute(builder: (context) => BotNavbar(idUser: result.id)));
                   } else {
                     _showMessage("Invalid email or password ");
