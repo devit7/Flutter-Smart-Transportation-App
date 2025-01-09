@@ -38,7 +38,6 @@ class _TransaksiPageState extends State<TransaksiPage> {
         tanggalTransaksi: selectedDate!,
       );
 
-      // Periksa apakah response berhasil dan memiliki data
       if (response != null && response['data'] != null) {
         final String idTransaksi =
             response['data']['id'].toString(); // Ambil ID transaksi

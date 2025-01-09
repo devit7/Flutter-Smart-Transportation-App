@@ -21,10 +21,6 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
     });
 
     try {
-      // const String idUser = "36";
-      // const String idJadwal = "1";
-      // const String status = "success";
-      // const String tanggalTransaksi = "2025-12-02 09:00:00"; // Format lengkap
       const String statusPenumpang = "out";
 
       final success = await TransaksiApi().update(
