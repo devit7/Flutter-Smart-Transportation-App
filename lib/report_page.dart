@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:tugas_akhir/DB/report_api.dart'; // Import your API service
+import 'package:intl/intl.dart';
 
 class AddReportPage extends StatefulWidget {
   const AddReportPage({super.key});
@@ -16,6 +17,7 @@ class _AddReportPageState extends State<AddReportPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final ReportApi _reportApi = ReportApi(); // Create an instance of ReportApi
+  bool _isLoading = false; // Loading state variable
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -55,6 +57,10 @@ class _AddReportPageState extends State<AddReportPage> {
       return;
     }
 
+    setState(() {
+      _isLoading = true; // Set loading to true
+    });
+
     var response = await _reportApi.submitReport(
       judul: _titleController.text,
       deskripsi: _descriptionController.text,
@@ -62,6 +68,10 @@ class _AddReportPageState extends State<AddReportPage> {
       idUser: "user_id_placeholder", // Replace with actual user ID
       fileMedia: _selectedImage,
     );
+
+    setState(() {
+      _isLoading = false; // Reset loading state
+    });
 
     if (response != null && response['success'] == true) {
       // Handle success
@@ -91,7 +101,6 @@ class _AddReportPageState extends State<AddReportPage> {
         backgroundColor: Colors.blue.shade900,
       ),
       body: SingleChildScrollView(
-        // Allow scrolling
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +125,7 @@ class _AddReportPageState extends State<AddReportPage> {
                   child: Text(
                     _selectedDate == null
                         ? "Select Date"
-                        : "${_selectedDate!.day} ${_selectedDate!.month} ${_selectedDate!.year}",
+                        : DateFormat('dd MMM yyyy').format(_selectedDate!),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -169,20 +178,23 @@ class _AddReportPageState extends State<AddReportPage> {
               ),
             ],
             const SizedBox(height: 16), // Add some space before the button
-            ElevatedButton(
-              onPressed: _submitReport,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink.shade400,
-                minimumSize: const Size(double.infinity, 48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            if (_isLoading) // Show loading indicator if loading
+              Center(child: CircularProgressIndicator()),
+            if (!_isLoading) // Show submit button only if not loading
+              ElevatedButton(
+                onPressed: _submitReport,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink.shade400,
+                  minimumSize: const Size(double.infinity, 48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: const Text(
+                  "Submit Report",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
-              child: const Text(
-                "Submit Report",
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
           ],
         ),
       ),
