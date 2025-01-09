@@ -63,6 +63,7 @@ class _EditProfileState extends State<EditProfile> {
               }
 
               final penumpang = snapshot.data;
+              final noTell=penumpang.noTelp;
               nameController.text = penumpang.name ?? "";
               emailController.text = penumpang.email ?? "";
               noTelpController.text = penumpang.noTelp ?? "";
