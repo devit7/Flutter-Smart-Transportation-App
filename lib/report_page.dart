@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:tugas_akhir/DB/report_api.dart'; // Import your API service
+import 'package:tugas_akhir/DB/report_api.dart'; // Import API service
 import 'package:intl/intl.dart';
 
 class AddReportPage extends StatefulWidget {
@@ -16,40 +16,37 @@ class _AddReportPageState extends State<AddReportPage> {
   File? _selectedImage;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final ReportApi _reportApi = ReportApi(); // Create an instance of ReportApi
-  bool _isLoading = false; // Loading state variable
+  final TextEditingController _userIdController =
+      TextEditingController(); // Add user ID controller
+  final ReportApi _reportApi = ReportApi();
+  bool _isLoading = false;
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-    if (pickedDate != null && pickedDate != _selectedDate) {
-      setState(() {
-        _selectedDate = pickedDate;
-      });
+    if (pickedDate != null) {
+      setState(() => _selectedDate = pickedDate);
     }
   }
 
   Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path);
-      });
+      setState(() => _selectedImage = File(pickedFile.path));
     }
   }
 
   Future<void> _submitReport() async {
     if (_selectedDate == null ||
         _titleController.text.isEmpty ||
-        _descriptionController.text.isEmpty) {
-      // Show error message
+        _descriptionController.text.isEmpty ||
+        _userIdController.text.isEmpty) {
+      // Check if user ID is entered
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text("Please fill all fields and select a date.")),
@@ -57,30 +54,27 @@ class _AddReportPageState extends State<AddReportPage> {
       return;
     }
 
-    setState(() {
-      _isLoading = true; // Set loading to true
-    });
+    setState(() => _isLoading = true);
+
+    // Get user ID from input
+    var userId = _userIdController.text;
 
     var response = await _reportApi.submitReport(
       judul: _titleController.text,
       deskripsi: _descriptionController.text,
       tanggal: _selectedDate!,
-      idUser: "user_id_placeholder", // Replace with actual user ID
+      idUser: userId, // Pass entered user ID
       fileMedia: _selectedImage,
     );
 
-    setState(() {
-      _isLoading = false; // Reset loading state
-    });
+    setState(() => _isLoading = false);
 
-    if (response != null && response['success'] == true) {
-      // Handle success
+    if (response['success'] == true) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Report submitted successfully!")),
       );
-      Navigator.pop(context); // Navigate back or reset the form
+      Navigator.pop(context);
     } else {
-      // Handle failure
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(response['message'] ?? "An error occurred")),
       );
@@ -94,9 +88,7 @@ class _AddReportPageState extends State<AddReportPage> {
         title: const Text("Report"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: Colors.blue.shade900,
       ),
@@ -105,20 +97,22 @@ class _AddReportPageState extends State<AddReportPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Add Report",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            const Text("Add Report",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _userIdController,
+              decoration: InputDecoration(
+                hintText: "Enter User ID",
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
               ),
             ),
             const SizedBox(height: 16),
             Row(
               children: [
-                const Text(
-                  "Date :",
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
-                ),
+                const Text("Date:",
+                    style: TextStyle(fontSize: 16, color: Colors.black54)),
                 const SizedBox(width: 8),
                 TextButton(
                   onPressed: () => _selectDate(context),
@@ -134,24 +128,20 @@ class _AddReportPageState extends State<AddReportPage> {
             const SizedBox(height: 16),
             TextField(
               controller: _titleController,
-              textAlign: TextAlign.center,
               decoration: InputDecoration(
                 hintText: "Add Report Title",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+                    borderRadius: BorderRadius.circular(8.0)),
               ),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _descriptionController,
-              textAlign: TextAlign.center,
               maxLines: 5,
               decoration: InputDecoration(
                 hintText: "Add Description",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+                    borderRadius: BorderRadius.circular(8.0)),
               ),
             ),
             const SizedBox(height: 16),
@@ -177,10 +167,10 @@ class _AddReportPageState extends State<AddReportPage> {
                 fit: BoxFit.cover,
               ),
             ],
-            const SizedBox(height: 16), // Add some space before the button
-            if (_isLoading) // Show loading indicator if loading
-              Center(child: CircularProgressIndicator()),
-            if (!_isLoading) // Show submit button only if not loading
+            const SizedBox(height: 16),
+            if (_isLoading)
+              const Center(child: CircularProgressIndicator())
+            else
               ElevatedButton(
                 onPressed: _submitReport,
                 style: ElevatedButton.styleFrom(
@@ -190,10 +180,8 @@ class _AddReportPageState extends State<AddReportPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: const Text(
-                  "Submit Report",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
+                child: const Text("Submit Report",
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
               ),
           ],
         ),
@@ -202,9 +190,5 @@ class _AddReportPageState extends State<AddReportPage> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: AddReportPage(),
-  ));
-}
+void main() => runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: AddReportPage()));
