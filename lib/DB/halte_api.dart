@@ -13,8 +13,9 @@ class HalteApi {
 
     if (response.statusCode == 200) {
       // print(response.body);
-      final List<dynamic> jsonData = jsonDecode(response.body)["data"];
-      return jsonData.map((json) => HalteApiModel.fromJson(json)).toList();
+      // final List<dynamic> jsonData = jsonDecode(response.body)["data"];
+      // return jsonData.map((json) => HalteApiModel.fromJson(json)).toList();
+      return halteApiModelFromJson(response.body);
     } else {
       return null;
     }

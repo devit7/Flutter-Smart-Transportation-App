@@ -302,7 +302,7 @@ class _DashboardState extends State<Dashboard> {
                               const SizedBox(height: 12),
                           itemCount: halte.length,
                           itemBuilder: (context, index) {
-                            final itemHalte = halte[index];
+                            final itemHalte = halte.id;
                             return Container(
                               margin: const EdgeInsets.only(bottom: 5),
                               decoration: BoxDecoration(

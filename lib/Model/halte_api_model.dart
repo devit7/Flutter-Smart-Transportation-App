@@ -12,15 +12,13 @@ class HalteApiModel {
   factory HalteApiModel.fromJson(Map<String, dynamic> json) {
     final data = json['data'];
     return HalteApiModel(
-      id: data["id"] is int
-          ? data["id"]
-          : int.tryParse(data["id"].toString()) ?? 0,
-      namaHalte: data["namaHalte"] ?? "",
+      id: data["id"],
+      namaHalte: data["namaHalte"],
     );
   }
+  // Map<String, dynamic> tojson() => {"namaHalte": namaHalte, "id": id};
+
 }
 
-List<HalteApiModel> penumpangApiModelFromJson(String str) {
-  final List<dynamic> jsonData = jsonDecode(str);
-  return jsonData.map((json) => HalteApiModel.fromJson(json)).toList();
-}
+List<HalteApiModel> halteApiModelFromJson(String str) => List<HalteApiModel>.from(
+    jsonDecode(str).map((x) => HalteApiModel.fromJson(x))).toList();

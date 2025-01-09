@@ -93,15 +93,11 @@ class _TransaksiPageState extends State<TransaksiPage> {
           ),
           onPressed: () {
             Navigator.push(
-<<<<<<< HEAD
-                context, MaterialPageRoute(builder: (context) => Dashboard(idUser: "2",)));
-=======
                 context,
                 MaterialPageRoute(
                     builder: (context) => Dashboard(
                           idUser: widget.idUser,
                         )));
->>>>>>> 1d10732e89af0c3c309c989bca051c4455d521b0
           },
         ),
       ),
