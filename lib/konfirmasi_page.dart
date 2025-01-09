@@ -62,7 +62,7 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
           ),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => TransaksiPage()));
+                MaterialPageRoute(builder: (context) => TransaksiPage(idUser: "1",)));
           },
         ),
       ),

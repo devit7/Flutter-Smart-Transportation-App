@@ -5,8 +5,8 @@ import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/konfirmasi_page.dart'; // Import KonfirmasiPage
 
 class TransaksiPage extends StatefulWidget {
-  const TransaksiPage({Key? key}) : super(key: key);
-
+  const TransaksiPage({super.key, required this.idUser});
+  final String idUser;
   @override
   _TransaksiPageState createState() => _TransaksiPageState();
 }
@@ -93,7 +93,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
           ),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Dashboard()));
+                context, MaterialPageRoute(builder: (context) => Dashboard(idUser: widget.idUser,)));
           },
         ),
       ),

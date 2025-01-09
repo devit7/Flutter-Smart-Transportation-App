@@ -3,7 +3,8 @@ import 'package:tugas_akhir/DB/transaksi_history.dart';
 import 'package:tugas_akhir/model/transaksi_hisotry.dart';
 
 class HistoryJourney extends StatefulWidget {
-  const HistoryJourney({super.key});
+  const HistoryJourney({super.key, required this.idUser});
+  final String idUser;
 
   @override
   State<HistoryJourney> createState() => _HistoryJourneyState();

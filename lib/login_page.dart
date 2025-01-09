@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                     // Navigate to the next page or perform your login action
                     print('User Data: ${result}');
                     // Example of navigation:
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => BotNavbar(id: result.id)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BotNavbar(idUser: result.id)));
                   } else {
                     _showMessage("Invalid email or password ");
                   };
