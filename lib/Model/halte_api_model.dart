@@ -1,24 +1,22 @@
 import 'dart:convert';
-import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 
 class HalteApiModel {
-  int id;
-  String namaHalte;
+  String? id;
+  String? namaHalte;
 
   HalteApiModel({required this.id, required this.namaHalte});
 
   factory HalteApiModel.fromJson(Map<String, dynamic> json) {
-    final data = json['data'];
+    //final data = json['data'];
     return HalteApiModel(
-      id: data["id"],
-      namaHalte: data["namaHalte"],
+      id: json["id"]?.toString(),
+      namaHalte: json["namaHalte"] ?? "",
     );
   }
-  // Map<String, dynamic> tojson() => {"namaHalte": namaHalte, "id": id};
-
 }
 
-List<HalteApiModel> halteApiModelFromJson(String str) => List<HalteApiModel>.from(
-    jsonDecode(str).map((x) => HalteApiModel.fromJson(x))).toList();
+List<HalteApiModel> halteApiModelFromJson(String str) {
+  final Map<String, dynamic> jsonData = jsonDecode(str);
+  final List<dynamic> data = jsonData["data"];
+  return data.map((item) => HalteApiModel.fromJson(item)).toList();
+}

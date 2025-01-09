@@ -47,9 +47,9 @@ class _DashboardState extends State<Dashboard> {
           }
 
           final penumpang = snapshot.data;
-          final halte = snapshot.data;
-          print(halte.toString());
-          print(penumpang.toString());
+          //final halte = snapshot.data;
+          //print(halte.toString());
+          //print(penumpang.toString());
 
           return Column(
             children: [
@@ -302,7 +302,7 @@ class _DashboardState extends State<Dashboard> {
                               const SizedBox(height: 12),
                           itemCount: halte.length,
                           itemBuilder: (context, index) {
-                            final itemHalte = halte.id;
+                            final itemHalte = halte[index];
                             return Container(
                               margin: const EdgeInsets.only(bottom: 5),
                               decoration: BoxDecoration(
@@ -310,6 +310,9 @@ class _DashboardState extends State<Dashboard> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: ListTile(
+                                onTap: () {
+                                  
+                                },
                                 leading: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Image.asset(
@@ -352,24 +355,6 @@ class _DashboardState extends State<Dashboard> {
                     //   }
                     // ,itemCount: halte.length),
 
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              "assets/images/yelan.jpg",
-                              width: 80,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
                     // Container(
                     //   decoration: BoxDecoration(
                     //       color: Colors.white,

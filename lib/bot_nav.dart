@@ -19,7 +19,6 @@ class _BotNavbarState extends State<BotNavbar> {
   void initState() {
     super.initState();
     _pages = <Widget>[
-
       Dashboard(idUser: widget.idUser),
       HistoryJourney(idUser: widget.idUser),
       ProfilePage(idUser: widget.idUser),
