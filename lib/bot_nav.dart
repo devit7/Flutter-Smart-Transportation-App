@@ -5,21 +5,25 @@ import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/profile_page.dart';
 
 class BotNavbar extends StatefulWidget {
-  const BotNavbar({super.key});
-
+  const BotNavbar({super.key, required this.id});
+  final String id;
   @override
   State<BotNavbar> createState() => _BotNavbarState();
 }
 
 class _BotNavbarState extends State<BotNavbar> {
-
+  List<Widget> _pages = [];
   int _selectedIndex = 0;
-
-  static const List<Widget> _pages = <Widget>[
-    Dashboard(),
-    HistoryJourney(),
-    ProfilePage(),
-  ];
+  
+  @override
+  void initState() {
+    super.initState();
+    _pages = <Widget>[
+      Dashboard(id: widget.id),
+      HistoryJourney(),
+      ProfilePage(),
+    ];
+  }
   
   @override
   Widget build(BuildContext context) {

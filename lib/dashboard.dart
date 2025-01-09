@@ -3,8 +3,8 @@ import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
-
+  const Dashboard({super.key, required this.id});
+  final String id;
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -17,11 +17,11 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState(){
     super.initState();
-    getPenumpang();
+    getPenumpang(widget.id);
   }
-  void getPenumpang() {
+  void getPenumpang(id) {
     setState(() {
-      futureDashboard = penumpangApi.getById(id: "7");
+      futureDashboard = penumpangApi.getById(id: id);
     });
   }
 
@@ -136,7 +136,7 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Icon(Icons.person),
-                        Text(penumpang.name,
+                        Text(penumpang.name ?? "-",
                           style: TextStyle(
                             fontFamily: "FigtreeBold",
                             fontSize: 17,
@@ -147,7 +147,7 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Icon(Icons.phone),
-                        Text(penumpang.noTelp,
+                        Text(penumpang.noTelp ?? "-",
                         style: TextStyle(
                             fontFamily: "FigtreeReguler",
                             fontSize: 15,
@@ -158,7 +158,7 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Icon(Icons.home),
-                        Text(penumpang.alamat,
+                        Text(penumpang.alamat ?? "-",
                         style: TextStyle(
                             fontFamily: "FigtreeReguler",
                             fontSize: 15,
