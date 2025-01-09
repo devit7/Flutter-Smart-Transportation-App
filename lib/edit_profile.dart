@@ -22,6 +22,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController noTelpController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController imgController = TextEditingController();
+  final idProfile = "9";
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void getPenumpang() {
     setState(() {
-      futureDashboard = penumpangApi.getById(id: "9");
+      futureDashboard = penumpangApi.getById(id: idProfile);
       //print(futureDashboard.toString());
     });
   }
@@ -331,7 +332,7 @@ class _EditProfileState extends State<EditProfile> {
                                         } */
 
                                         await penumpangApi.update(
-                                          id: "2",
+                                          id: idProfile,
                                           name: nameController.text,
                                           noTelp: noTelpController.text,
                                           alamat: alamatController.text,
