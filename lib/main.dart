@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HistoryReport(),
+      home: KonfirmasiPage(),
+      // home: HistoryJourney(idUser: "9"),
     );
   }
 }

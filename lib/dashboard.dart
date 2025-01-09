@@ -3,8 +3,8 @@ import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key, required this.id});
-  final String id;
+  const Dashboard({super.key, required this.idUser});
+  final String idUser;
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    getPenumpang(widget.id);
+    getPenumpang(widget.idUser);
   }
 
   void getPenumpang(id) {
