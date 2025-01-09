@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/edit_profile.dart';
 import 'package:tugas_akhir/history_journey.dart';
+import 'package:tugas_akhir/history_report.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -38,6 +39,13 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         backgroundColor: Color.fromARGB(255, 26, 42, 69),
         // Button Back Pada Navbar
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -177,7 +185,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 380,
                                 height: 60,
                                 child: OutlinedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HistoryReport(),
+                                      ),
+                                    );
+                                  },
                                   style: OutlinedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(0),
@@ -256,110 +271,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                               ),
-                              // Button Edit Profile
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   crossAxisAlignment: CrossAxisAlignment.center,
-                              //   children: [
-                              //     Icon(
-                              //       Icons.person_rounded,
-                              //       size: 35,
-                              //     ),
-                              //     SizedBox(width: 5),
-                              //     Flexible(
-                              //       child: OutlinedButton(
-                              //         onPressed: () {},
-                              //         style: OutlinedButton.styleFrom(
-                              //           minimumSize: const Size(340, 60),
-                              //           shape: RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(0),
-                              //           ),
-                              //           side: BorderSide(
-                              //             width: 2.5,
-                              //           ),
-                              //         ),
-                              //         child: const Text(
-                              //           "Edit Profile",
-                              //           style: TextStyle(
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.bold,
-                              //             color: Colors.black,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                              // SizedBox(height: 30),
-                              // // Button History Report
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   crossAxisAlignment: CrossAxisAlignment.center,
-                              //   children: [
-                              //     Icon(
-                              //       Icons.report_gmailerrorred_outlined,
-                              //       size: 35,
-                              //     ),
-                              //     SizedBox(width: 5),
-                              //     Flexible(
-                              //       child: OutlinedButton(
-                              //         onPressed: () {},
-                              //         style: OutlinedButton.styleFrom(
-                              //           minimumSize: const Size(340, 60),
-                              //           shape: RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(0),
-                              //           ),
-                              //           side: BorderSide(
-                              //             width: 2.5,
-                              //           ),
-                              //         ),
-                              //         child: const Text(
-                              //           "History Report",
-                              //           style: TextStyle(
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.bold,
-                              //             color: Colors.black,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ],
-                              //   // Button History Journey
-                              // ),
-                              // SizedBox(height: 30),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   crossAxisAlignment: CrossAxisAlignment.center,
-                              //   children: [
-                              //     Icon(
-                              //       Icons.signpost_outlined,
-                              //       size: 35,
-                              //     ),
-                              //     SizedBox(width: 5),
-                              //     Flexible(
-                              //       child: OutlinedButton(
-                              //         onPressed: () {},
-                              //         style: OutlinedButton.styleFrom(
-                              //           minimumSize: const Size(340, 60),
-                              //           shape: RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(0),
-                              //           ),
-                              //           side: BorderSide(
-                              //             width: 2.5,
-                              //           ),
-                              //         ),
-                              //         child: const Text(
-                              //           "History Journey",
-                              //           style: TextStyle(
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.bold,
-                              //             color: Colors.black,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
                               SizedBox(
                                 height: 50,
                               ),
@@ -380,105 +291,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                               BorderRadius.circular(10),
                                         ),
                                       ),
-                                      child: Text(
-                                        "Logout",
-                                        style: TextStyle(
-                                            color: const Color(0xFFFFFFFF)),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 30),
-                              // Button History Report
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.report_gmailerrorred_outlined,
-                                    size: 35,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Flexible(
-                                    child: OutlinedButton(
-                                      onPressed: () {},
-                                      style: OutlinedButton.styleFrom(
-                                        minimumSize: const Size(340, 60),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                        ),
-                                        side: BorderSide(
-                                          width: 2.5,
-                                        ),
-                                      ),
-                                      child: const Text(
-                                        "History Report",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                                // Button History Journey
-                              ),
-                              SizedBox(height: 30),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.signpost_outlined,
-                                    size: 35,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Flexible(
-                                    child: OutlinedButton(
-                                      onPressed: () {},
-                                      style: OutlinedButton.styleFrom(
-                                        minimumSize: const Size(340, 60),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                        ),
-                                        side: BorderSide(
-                                          width: 2.5,
-                                        ),
-                                      ),
-                                      child: const Text(
-                                        "History Journey",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 45,
-                              ),
-                              // Button Logout
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 300,
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 206, 14, 0),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10))),
                                       child: Text(
                                         "Logout",
                                         style: TextStyle(
