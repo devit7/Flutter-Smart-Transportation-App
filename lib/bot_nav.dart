@@ -5,8 +5,8 @@ import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/profile_page.dart';
 
 class BotNavbar extends StatefulWidget {
-  const BotNavbar({super.key, required this.id});
-  final String id;
+  const BotNavbar({super.key, required this.idUser});
+  final String idUser;
   @override
   State<BotNavbar> createState() => _BotNavbarState();
 }
@@ -19,9 +19,15 @@ class _BotNavbarState extends State<BotNavbar> {
   void initState() {
     super.initState();
     _pages = <Widget>[
+<<<<<<< HEAD
       Dashboard(idUser: widget.id),
       HistoryJourney(),
       ProfilePage(),
+=======
+      Dashboard(idUser: widget.idUser),
+      HistoryJourney(idUser: widget.idUser),
+      ProfilePage(idUser: widget.idUser),
+>>>>>>> 1d10732e89af0c3c309c989bca051c4455d521b0
     ];
   }
   

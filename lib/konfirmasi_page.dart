@@ -3,9 +3,7 @@ import 'package:tugas_akhir/DB/transaksi_api.dart';
 import 'package:tugas_akhir/transaksi_page.dart';
 
 class KonfirmasiPage extends StatefulWidget {
-  final String id;
-
-  const KonfirmasiPage({Key? key, required this.id}) : super(key: key);
+  const KonfirmasiPage({Key? key}) : super(key: key);
 
   @override
   _KonfirmasiPageState createState() => _KonfirmasiPageState();
@@ -14,22 +12,34 @@ class KonfirmasiPage extends StatefulWidget {
 class _KonfirmasiPageState extends State<KonfirmasiPage> {
   bool isLoading = false;
 
+  // Fungsi untuk konfirmasi transaksi
   Future<void> confirmTransaction() async {
     setState(() {
       isLoading = true;
     });
 
     try {
+      const String id = "19";
+      // const String idUser = "36";
+      // const String idJadwal = "1";
+      // const String status = "success";
+      // const String tanggalTransaksi = "2025-12-02 09:00:00"; // Format lengkap
+      const String statusPenumpang = "out";
+
       final success = await TransaksiApi().update(
-        id: widget.id,
-        statusPenumpang: "out",
+        id: id,
+        // idUser: idUser,
+        // idJadwal: idJadwal,
+        // status: status,
+        // tanggalTransaksi: tanggalTransaksi,
+        statusPenumpang: statusPenumpang,
       );
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Transaction confirmed successfully")),
         );
-        Navigator.pop(context); // Kembali ke halaman sebelumnya
+        // Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Failed to confirm transaction")),
@@ -61,8 +71,10 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
             color: Colors.white, // Warna putih untuk ikon
           ),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => TransaksiPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TransaksiPage(idUser: "1")));
           },
         ),
       ),

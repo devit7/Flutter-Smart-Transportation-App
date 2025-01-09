@@ -5,7 +5,8 @@ import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/history_report.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required this.idUser});
+  final String idUser;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -236,7 +237,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HistoryJourney(),
+                                        builder: (context) => HistoryJourney(idUser: widget.idUser,),
                                       ),
                                     );
                                   },
