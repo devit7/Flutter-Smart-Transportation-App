@@ -3,25 +3,26 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
-class PenumpangApi {
 
-  String baseUrl = "http://apibus.rngrelic.my.id/api/users";  
-  //String baseUrl = "https://0c0f-182-253-50-62.ngrok-free.app/api/users";  
+class PenumpangApi {
+  String baseUrl = "http://apibus.rngrelic.my.id/api/users";
+  //String baseUrl = "https://0c0f-182-253-50-62.ngrok-free.app/api/users";
   var client = Client();
 
   Future<dynamic> getById({required String id}) async {
     var url = Uri.parse("$baseUrl/$id");
     var response = await client.get(url);
-    if(response.statusCode == 200){
-      // print(response.body);
+
+    if (response.statusCode == 200) {
+      print(response.body);
+
       return PenumpangApiModel.fromJson(jsonDecode(response.body));
-    }else{
+    } else {
       return null;
     }
   }
 
-
-Future<dynamic> update({
+  Future<dynamic> update({
     required String id,
     required String name,
     required String noTelp,
@@ -71,4 +72,25 @@ Future<dynamic> update({
     }
   }
 
+  Future<dynamic> register({required Map<String, dynamic> data}) async {
+    var url = Uri.parse(baseUrl);
+
+    try {
+      var response = await client.post(
+        url,
+        body: jsonEncode(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(response.body); // Parsing JSON respons
+      } else {
+        return jsonDecode(response.body); // Untuk menampilkan pesan error
+      }
+    } catch (e) {
+      throw Exception("Failed to connect to API: $e");
+    }
+  }
 }

@@ -13,9 +13,9 @@ class PenumpangApiModel {
       required this.name,
       required this.password,
       required this.email,
-      required this.noTelp,
+      // required this.noTelp,
       required this.alamat,
-      required this.img});
+      required this.img, required noTelp});
 
   factory PenumpangApiModel.fromJson(Map<String, dynamic> json) {
     final data = json['data'];

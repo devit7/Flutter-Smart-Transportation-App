@@ -31,7 +31,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void getPenumpang() {
     setState(() {
-      futureDashboard = penumpangApi.getById(id: "2");
+      futureDashboard = penumpangApi.getById(id: "9");
       //print(futureDashboard.toString());
     });
   }
@@ -40,7 +40,14 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 26, 42, 69),
         title: Text("Edit Profile"),
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -159,6 +166,9 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 20,
+                              ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -186,6 +196,9 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 20,
+                              ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -209,6 +222,9 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 20,
                               ),
                               // profile change
                               Row(
@@ -295,6 +311,9 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   ),
                                   SizedBox(
+                                    width: 20,
+                                  ),
+                                  SizedBox(
                                     height: 45,
                                     width: 170,
                                     child: ElevatedButton(
@@ -323,7 +342,6 @@ class _EditProfileState extends State<EditProfile> {
                                           SnackBar(
                                               content:
                                                   Text("Data Berhasil Diubah")),
-
                                         );
                                         // refresh data
                                         getPenumpang();
@@ -353,7 +371,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-Future<void> pickImage() async {
+  Future<void> pickImage() async {
     final imagePicker =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -364,5 +382,4 @@ Future<void> pickImage() async {
       image = imageTemp;
     });
   }
-
 }
