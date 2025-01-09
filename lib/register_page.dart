@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
+import 'package:tugas_akhir/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -39,7 +40,9 @@ class _RegisterPageState extends State<RegisterPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Registration successful!')),
         );
-        Navigator.pushReplacementNamed(context, '/login');
+        // Navigator.pushReplacementNamed(context, '/login');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Registration failed: ${result['message']}')),
@@ -125,7 +128,8 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 35),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
                 },
                 child: RichText(
                   text: const TextSpan(
