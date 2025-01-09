@@ -3,6 +3,7 @@ import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/edit_profile.dart';
 import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/history_report.dart';
+import 'package:tugas_akhir/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.idUser});
@@ -237,7 +238,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HistoryJourney(idUser: widget.idUser,),
+                                        builder: (context) => HistoryJourney(
+                                          idUser: widget.idUser,
+                                        ),
                                       ),
                                     );
                                   },
@@ -283,7 +286,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                     height: 50,
                                     width: 300,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginPage()));
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color.fromARGB(
                                             255, 206, 14, 0),

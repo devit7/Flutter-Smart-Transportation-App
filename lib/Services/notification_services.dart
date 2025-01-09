@@ -4,27 +4,32 @@ class NotificationServices {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-// untuk menangani notifikasi yang diterima
   static Future<void> onDidReceiveNotification(
       NotificationResponse notificationResponse) async {
-    print(notificationResponse);
+    print('Notification received: $notificationResponse');
   }
 
   static Future<void> init() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    try {
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
+      const InitializationSettings initializationSettings =
+          InitializationSettings(android: initializationSettingsAndroid);
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveBackgroundNotificationResponse: onDidReceiveNotification,
-        onDidReceiveNotificationResponse: onDidReceiveNotification);
+      await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+          onDidReceiveBackgroundNotificationResponse: onDidReceiveNotification,
+          onDidReceiveNotificationResponse: onDidReceiveNotification);
 
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestNotificationsPermission();
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.requestNotificationsPermission();
+
+      print('Notification initialized successfully');
+    } catch (e) {
+      print('Error initializing notifications: $e');
+    }
   }
 
   static Future<void> showNotification({
@@ -38,17 +43,23 @@ class NotificationServices {
       'channel_name',
       importance: Importance.max,
       priority: Priority.high,
+      icon: '@mipmap/ic_launcher', // Explicitly set the icon
     );
 
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
 
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      title,
-      body,
-      platformChannelSpecifics,
-      payload: payload,
-    );
+    try {
+      await flutterLocalNotificationsPlugin.show(
+        0,
+        title,
+        body,
+        platformChannelSpecifics,
+        payload: payload,
+      );
+      print('Notification shown successfully');
+    } catch (e) {
+      print('Error showing notification: $e');
+    }
   }
 }

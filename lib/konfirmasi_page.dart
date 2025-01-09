@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/DB/transaksi_api.dart';
+import 'package:tugas_akhir/Services/notification_services.dart';
 import 'package:tugas_akhir/transaksi_page.dart';
 
 class KonfirmasiPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
 
   // Fungsi untuk konfirmasi transaksi
   Future<void> confirmTransaction() async {
+   
     setState(() {
       isLoading = true;
     });
@@ -29,6 +31,11 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
       );
 
       if (success) {
+        NotificationServices.showNotification(
+          title: "Transaksi Berhasil",
+          body: "Transaksi berhasil dikonfirmasi",
+          payload: "transaksi",
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Transaction confirmed successfully")),
         );
