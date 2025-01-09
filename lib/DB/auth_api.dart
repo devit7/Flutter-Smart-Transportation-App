@@ -18,7 +18,7 @@ class AuthApi {
       // print(response.body);
       return AuthModel.fromJson(jsonDecode(response.body));
     } else {
-      // print("halo login e ga jalan status code = ${response.statusCode} body = ${response.body}");
+      //print("halo login e ga jalan status code = ${response.statusCode} body = ${response.body}");
       return null;
     }
   }
