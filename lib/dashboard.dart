@@ -251,6 +251,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     //HALTE ITEM!!!
+                    ListView.separated(itemBuilder: itemBuilder, separatorBuilder: separatorBuilder, itemCount: itemCount)
                     Container(
                       margin: EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
