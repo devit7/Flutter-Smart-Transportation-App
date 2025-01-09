@@ -12,13 +12,10 @@ class PenumpangApi {
   Future<dynamic> getById({required String id}) async {
     var url = Uri.parse("$baseUrl/$id");
     var response = await client.get(url);
-<<<<<<< HEAD
+
     if (response.statusCode == 200) {
       print(response.body);
-=======
-    if(response.statusCode == 200){
-      // print(response.body);
->>>>>>> 89d10f1bdc1262afb7892f382e2ea48dab754aae
+
       return PenumpangApiModel.fromJson(jsonDecode(response.body));
     } else {
       return null;
@@ -75,7 +72,6 @@ class PenumpangApi {
     }
   }
 
-<<<<<<< HEAD
   Future<dynamic> register({required Map<String, dynamic> data}) async {
     var url = Uri.parse(baseUrl);
 
@@ -98,6 +94,3 @@ class PenumpangApi {
     }
   }
 }
-=======
-}
->>>>>>> 89d10f1bdc1262afb7892f382e2ea48dab754aae

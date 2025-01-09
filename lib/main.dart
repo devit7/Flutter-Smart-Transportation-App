@@ -3,13 +3,10 @@ import 'package:tugas_akhir/bot_nav.dart';
 import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/list_bus_api.dart';
 import 'package:tugas_akhir/edit_profile.dart';
-<<<<<<< HEAD
 import 'package:tugas_akhir/history_report.dart';
 import 'package:tugas_akhir/list_bus.dart';
-=======
 import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/login_page.dart';
->>>>>>> 89d10f1bdc1262afb7892f382e2ea48dab754aae
 import 'package:tugas_akhir/profile_page.dart';
 import 'package:tugas_akhir/register_page.dart';
 import 'package:tugas_akhir/report_page.dart';
@@ -31,11 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-<<<<<<< HEAD
       home: TransaksiPage(),
-=======
-      home: LoginPage(),
->>>>>>> 89d10f1bdc1262afb7892f382e2ea48dab754aae
     );
   }
 }
