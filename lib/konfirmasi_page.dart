@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/DB/transaksi_api.dart';
+import 'package:tugas_akhir/Services/notification_services.dart';
 import 'package:tugas_akhir/transaksi_page.dart';
 
 class KonfirmasiPage extends StatefulWidget {
@@ -31,6 +32,11 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Transaction confirmed successfully")),
+        );
+        NotificationServices.showNotification(
+          title: 'Konfirmasi Sukses',
+          body: 'Transaksi dengan ID ${widget.id} berhasil dikonfirmasi.',
+          payload: widget.id,
         );
         // Navigator.pop(context);
       } else {
