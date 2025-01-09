@@ -1,71 +1,46 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 
 class TransaksiApi {
-  String baseUrl = "http://apibus.rngrelic.my.id/api/transaksi";
-  var client = Client();
+  final String baseUrl = "http://apibus.rngrelic.my.id/api/transaksi";
 
-  // CREATE Transaksi Baru
   Future<dynamic> create({
     required String idUser,
     required String idJadwal,
     required String status,
-    required String tanggalTransaksi,
+    required String statusPenumpang,
+    required DateTime tanggalTransaksi,
   }) async {
     var url = Uri.parse(baseUrl);
+
     try {
-      var response = await client.post(
+      // Format tanggal sesuai kebutuhan backend
+      final String formattedTanggalTransaksi =
+          DateFormat('yyyy-MM-dd HH:mm:ss').format(tanggalTransaksi);
+
+      final response = await http.post(
         url,
         body: jsonEncode({
-          "id_user": idUser,
-          "id_jadwal": idJadwal,
-          "status": status,
-          "tanggalTransaksi": tanggalTransaksi,
+          'id_user': idUser,
+          'id_jadwal': idJadwal,
+          'status': status, // Hanya menerima "success" atau "cancel"
+          'statusPenumpang': statusPenumpang,
+          'tanggalTransaksi': formattedTanggalTransaksi,
         }),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Header JSON
         },
       );
 
-      if (response.statusCode == 201 || response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return jsonDecode(response.body);
       } else {
-        return jsonDecode(response.body);
+        print("Error: ${response.body}");
+        return null;
       }
     } catch (e) {
       throw Exception("Failed to create transaction: $e");
-    }
-  }
-
-  // UPDATE Status Transaksi
-  Future<dynamic> updateStatus({
-    required String id,
-    required String status,
-  }) async {
-    var url = Uri.parse("$baseUrl/$id");
-    try {
-      var response = await client.put(
-        url,
-        body: jsonEncode({
-          "status": status,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      );
-
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        return {
-          "success": false,
-          "message":
-              "Failed to update status. Status code: ${response.statusCode}",
-        };
-      }
-    } catch (e) {
-      throw Exception("Failed to update status: $e");
     }
   }
 }

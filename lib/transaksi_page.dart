@@ -10,162 +10,141 @@ class TransaksiPage extends StatefulWidget {
 }
 
 class _TransaksiPageState extends State<TransaksiPage> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _tanggalController = TextEditingController();
-  String? _status = "Pending";
-  final TransaksiApi _transaksiApi = TransaksiApi();
+  final TextEditingController idUserController = TextEditingController();
+  final TextEditingController idJadwalController = TextEditingController();
+  final List<String> statusList = [
+    "success",
+    "cancel"
+  ]; // Nilai status disesuaikan
+  final List<String> statusPenumpangList = ["in", "out"];
+  String? selectedStatus;
+  String? selectedStatusPenumpang;
+  DateTime? selectedDate;
 
-  // Fungsi untuk mengirim data ke API
-  Future<void> _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        var result = await _transaksiApi.create(
-          idUser: "33", // ID manual
-          idJadwal: _titleController.text,
-          status: _status!,
-          tanggalTransaksi: _tanggalController.text,
-        );
-        print("Response from API: $result");
+  Future<void> saveTransaction() async {
+    if (selectedStatus == null ||
+        selectedStatusPenumpang == null ||
+        selectedDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please fill in all fields")),
+      );
+      return;
+    }
 
-        // Jika sukses, tampilkan snackbar
+    try {
+      final response = await TransaksiApi().create(
+        idUser: idUserController.text,
+        idJadwal: idJadwalController.text,
+        status: selectedStatus!,
+        statusPenumpang: selectedStatusPenumpang!,
+        tanggalTransaksi: selectedDate!,
+      );
+
+      if (response != null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Transaksi berhasil dibuat!')),
+          const SnackBar(content: Text("Transaction created successfully")),
         );
-
-        // Reset form setelah berhasil
-        _formKey.currentState!.reset();
-        _titleController.clear();
-        _descriptionController.clear();
-        _tanggalController.clear();
-        setState(() {
-          _status = "Pending";
-        });
-      } catch (e) {
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          const SnackBar(content: Text("Failed to create transaction")),
         );
       }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // Set tanggal default
-    _tanggalController.text = DateFormat('dd MMMM yyyy').format(DateTime.now());
+  Future<void> pickDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030),
+    );
+
+    if (picked != null) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Report'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: AppBar(title: const Text("Transaksi")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Tanggal
-              TextFormField(
-                controller: _tanggalController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: 'Date',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: idUserController,
+              decoration: const InputDecoration(
+                labelText: "ID User",
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16),
-
-              // Title
-              TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  labelText: 'Add Report Title',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Title is required';
-                  }
-                  return null;
-                },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              controller: idJadwalController,
+              decoration: const InputDecoration(
+                labelText: "ID Jadwal",
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16),
-
-              // Description
-              TextFormField(
-                controller: _descriptionController,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  labelText: 'Add Description',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Description is required';
-                  }
-                  return null;
-                },
+            ),
+            const SizedBox(height: 16.0),
+            DropdownButtonFormField<String>(
+              value: selectedStatus,
+              items: statusList
+                  .map((status) => DropdownMenuItem(
+                        value: status,
+                        child: Text(status),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedStatus = value;
+                });
+              },
+              decoration: const InputDecoration(
+                labelText: "Status",
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16),
-
-              // Dropdown Status
-              DropdownButtonFormField<String>(
-                value: _status,
-                items: ["Pending", "Completed", "Cancelled"]
-                    .map((status) => DropdownMenuItem(
-                          value: status,
-                          child: Text(status),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _status = value;
-                  });
-                },
-                decoration: InputDecoration(
-                  labelText: 'Status',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
+            ),
+            const SizedBox(height: 16.0),
+            DropdownButtonFormField<String>(
+              value: selectedStatusPenumpang,
+              items: statusPenumpangList
+                  .map((statusPenumpang) => DropdownMenuItem(
+                        value: statusPenumpang,
+                        child: Text(statusPenumpang),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedStatusPenumpang = value;
+                });
+              },
+              decoration: const InputDecoration(
+                labelText: "Status Penumpang",
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 32),
-
-              // Button Submit
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _submitForm,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Colors.pink, // Warna tombol
-                  ),
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: pickDate,
+              child: Text(selectedDate == null
+                  ? "Pilih Tanggal"
+                  : DateFormat("yyyy-MM-dd").format(selectedDate!)),
+            ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: saveTransaction,
+              child: const Text("Save Transaction"),
+            ),
+          ],
         ),
       ),
     );

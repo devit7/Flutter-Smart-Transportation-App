@@ -5,6 +5,7 @@ class TransaksiApiModel {
   String? idUser;
   String? idJadwal;
   String? status;
+  String? statusPenumpang;
   String? tanggalTransaksi;
 
   TransaksiApiModel({
@@ -12,6 +13,7 @@ class TransaksiApiModel {
     required this.idUser,
     required this.idJadwal,
     required this.status,
+    required this.statusPenumpang,
     required this.tanggalTransaksi,
   });
 
@@ -23,18 +25,19 @@ class TransaksiApiModel {
       idUser: data['id_user'].toString(),
       idJadwal: data['id_jadwal'].toString(),
       status: data['status'].toString(),
+      statusPenumpang: data['statusPenumpang'].toString(),
       tanggalTransaksi: data['tanggalTransaksi'].toString(),
     );
   }
 }
 
-// Untuk konversi dari JSON String ke List TransaksiApiModel
+// Konversi dari JSON string ke List TransaksiApiModel
 List<TransaksiApiModel> transaksiApiModelFromJson(String str) {
   final List<dynamic> jsonData = jsonDecode(str);
   return jsonData.map((json) => TransaksiApiModel.fromJson(json)).toList();
 }
 
-// Untuk konversi dari List TransaksiApiModel ke JSON String
+// Konversi dari List TransaksiApiModel ke JSON string
 String transaksiApiModelToJson(List<TransaksiApiModel> data) {
   return jsonEncode(
     List<dynamic>.from(data.map((x) => {
@@ -42,6 +45,7 @@ String transaksiApiModelToJson(List<TransaksiApiModel> data) {
           "id_user": x.idUser,
           "id_jadwal": x.idJadwal,
           "status": x.status,
+          "statusPenumpang": x.statusPenumpang,
           "tanggalTransaksi": x.tanggalTransaksi,
         })),
   );
