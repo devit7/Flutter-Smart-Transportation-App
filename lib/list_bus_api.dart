@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_akhir/DB/bus_api.dart';
 import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/model/penumpang_api_model.dart';
 import 'package:tugas_akhir/model/bus_api_model.dart';
 
 class ListBusApi extends StatefulWidget {
-  const ListBusApi({super.key});
+  const ListBusApi({super.key, required this.idUser});
+  final String idUser;
 
   @override
   State<ListBusApi> createState() => _ListBusApiState();
@@ -191,14 +193,18 @@ class _ListBusApiState extends State<ListBusApi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List Bus'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        )
-      ),
+          title: Text('List Bus'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Dashboard(idUser: widget.idUser),
+                ),
+              );
+            },
+          )),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
         child: Column(
@@ -220,7 +226,8 @@ class _ListBusApiState extends State<ListBusApi> {
                       itemCount: busApi.busList.length,
                       itemBuilder: (context, index) {
                         final bus = busApi.busList[index];
-                        bool isAvailableBus = isBusAvailable(bus.waktuBerangkat);
+                        bool isAvailableBus =
+                            isBusAvailable(bus.waktuBerangkat);
                         return GestureDetector(
                           onTap: () => showBusDetails(context, bus),
                           child: Card(
@@ -314,9 +321,10 @@ class _ListBusApiState extends State<ListBusApi> {
                             ),
                           ),
                         );
-                      }, separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(height: 12);
-                    },
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 12);
+                      },
                     ),
                   );
                 }
