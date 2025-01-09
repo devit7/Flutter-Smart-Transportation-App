@@ -28,8 +28,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+<<<<<<< HEAD
       ),  
       home: Dashboard(idUser: "9"),
+=======
+      ),
+      home: LoginPage(),
+>>>>>>> 0887e0b0a507b33d4ba86d13369945c9e1f667ca
       // home: HistoryJourney(idUser: "9"),
     );
   }

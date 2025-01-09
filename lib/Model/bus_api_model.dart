@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class BusApiModel {
   String idJadwal;
   String idHalte;
@@ -25,9 +23,9 @@ class BusApiModel {
 
   factory BusApiModel.fromJson(dynamic json) {
     final data = json;
-    print("\n");
-    print("BusApiModel.fromJson");
-    print(data);
+    // print("\n");
+    // print("BusApiModel.fromJson");
+    // print(data);
 
     return BusApiModel(
       idJadwal: data['id'].toString(),
@@ -55,8 +53,3 @@ class BusApiModel {
     return map;
   }
 }
-
-// List<BusApiModel> busApiModelFromJson(String str) {
-//   final List<dynamic> jsonData = jsonDecode(str);
-//   return jsonData.map((json) => BusApiModel.fromJson(json)).toList();
-// }
