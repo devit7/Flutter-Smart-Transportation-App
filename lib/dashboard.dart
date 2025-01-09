@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/DB/halte_api.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
+import 'package:tugas_akhir/Model/halte_api_model.dart';
+import 'package:tugas_akhir/Model/transaksi_hisotry.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class Dashboard extends StatefulWidget {
@@ -11,7 +14,9 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   Future<dynamic>? futureDashboard;
+  Future<dynamic>? futureHalte;
   final penumpangApi = PenumpangApi();
+  final halte = HalteApi();
 
   @override
   void initState() {
@@ -22,13 +27,14 @@ class _DashboardState extends State<Dashboard> {
   void getPenumpang(id) {
     setState(() {
       futureDashboard = penumpangApi.getById(id: id);
+      futureHalte = halte.get();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: SafeArea(
           child: FutureBuilder(
         future: futureDashboard,
         builder: (context, snapshot) {
@@ -41,6 +47,8 @@ class _DashboardState extends State<Dashboard> {
           }
 
           final penumpang = snapshot.data;
+          final halte = snapshot.data;
+          print(halte.toString());
           print(penumpang.toString());
 
           return Column(
@@ -270,6 +278,80 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     //HALTE ITEM!!!
+                    FutureBuilder(
+                      future: futureHalte,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        } else if (!snapshot.hasData ||
+                            (snapshot.data as List).isEmpty) {
+                          return const Center(
+                              child: Text('Halte tidak tersedia'));
+                        }
+
+                        final halte = snapshot.data!;
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 12),
+                          itemCount: halte.length,
+                          itemBuilder: (context, index) {
+                            final itemHalte = halte[index];
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ListTile(
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    "assets/images/yelan.jpg",
+                                    width: 50,
+                                  ),
+                                ),
+                                title: Text(itemHalte.namaHalte),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+
+                    // ListView.separated(
+                    //   final halte = halte[index];
+                    //   separatorBuilder: (context, index) => const
+                    //   SizedBox(height: 12,),
+                    //   itemBuilder: (context, index){
+                    //     Container(
+                    //       margin: EdgeInsets.only(bottom: 5),
+                    //       decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(20),
+                    //       ),
+                    //       child: Row(
+                    //         children: [
+                    //           ClipRRect(
+                    //             borderRadius: BorderRadius.circular(20),
+                    //             child: Image.asset(
+                    //               "assets/images/yelan.jpg",
+                    //               width: 80,
+                    //             ),
+                    //           ),
+                    //           Text(halte.namaLokasi)
+                    //         ],
+                    //       ),
+                    //     );
+                    //   }
+                    // ,itemCount: halte.length),
+
                     Container(
                       margin: EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
@@ -288,22 +370,23 @@ class _DashboardState extends State<Dashboard> {
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              "assets/images/yelan.jpg",
-                              width: 80,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    //   child: Row(
+                    //     children: [
+                    //       ClipRRect(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         child: Image.asset(
+                    //           "assets/images/yelan.jpg",
+                    //           width: 80,
+                    //         ),
+                    //       ),
+                    //       Text(halte.namaHalte)
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               )

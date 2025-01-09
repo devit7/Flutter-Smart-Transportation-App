@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TransaksiPage(idUser: "9"),
+      home: LoginPage(),
       // home: HistoryJourney(idUser: "9"),
     );
   }
