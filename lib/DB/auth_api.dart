@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:tugas_akhir/model/auth_model.dart';
 
 class AuthApi {
-  String baseUrl = "https://apibus.rngrelic.my.id/api/";
+  String baseUrl = "https://apibus.rngrelic.my.id/api";
  var client = http.Client();
 
     Future<dynamic> login({

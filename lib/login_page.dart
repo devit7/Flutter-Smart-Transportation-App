@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tugas_akhir/DB/auth_api.dart';
+import 'package:tugas_akhir/bot_nav.dart';
 import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/register_page.dart';
 
@@ -141,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   String email = _emailController.text;
                   String password = _passwordController.text;
-                  dynamic? result = await _apiHandler.login(email: email, password: password);
+                  dynamic result = await _apiHandler.login(email: email, password: password);
                   if (email.isEmpty || password.isEmpty) {
                     _showMessage('jangan lupa isi email and password ya!');
                     return;
@@ -151,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                     // Navigate to the next page or perform your login action
                     print('User Data: ${result}');
                     // Example of navigation:
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BotNavbar(id: result.id)));
                   } else {
                     _showMessage("Invalid email or password ");
                   };
