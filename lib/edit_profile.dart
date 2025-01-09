@@ -6,7 +6,8 @@ import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+  const EditProfile({super.key, required this.idUser});
+  final String idUser;
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -22,7 +23,6 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController noTelpController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController imgController = TextEditingController();
-  final idProfile = "9";
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void getPenumpang() {
     setState(() {
-      futureDashboard = penumpangApi.getById(id: idProfile);
+      futureDashboard = penumpangApi.getById(id: widget.idUser);
       //print(futureDashboard.toString());
     });
   }
@@ -333,7 +333,7 @@ class _EditProfileState extends State<EditProfile> {
                                         } */
 
                                         await penumpangApi.update(
-                                          id: idProfile,
+                                          id: widget.idUser,
                                           name: nameController.text,
                                           noTelp: noTelpController.text,
                                           alamat: alamatController.text,

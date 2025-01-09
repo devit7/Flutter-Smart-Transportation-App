@@ -3,6 +3,7 @@ import 'package:tugas_akhir/dashboard.dart';
 import 'package:tugas_akhir/edit_profile.dart';
 import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/profile_page.dart';
+import 'package:tugas_akhir/transaksi_page.dart';
 
 class BotNavbar extends StatefulWidget {
   const BotNavbar({super.key, required this.idUser});
@@ -20,7 +21,7 @@ class _BotNavbarState extends State<BotNavbar> {
     super.initState();
     _pages = <Widget>[
       Dashboard(idUser: widget.idUser),
-      HistoryJourney(idUser: widget.idUser),
+      TransaksiPage(idUser: widget.idUser),
       ProfilePage(idUser: widget.idUser),
     ];
   }

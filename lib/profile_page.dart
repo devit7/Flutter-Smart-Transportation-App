@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void getPenumpang() {
     setState(() {
-      futureProfile = penumpangApi.getById(id: "9");
+      futureProfile = penumpangApi.getById(id: widget.idUser);
     });
   }
 
@@ -143,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => EditProfile(),
+                                        builder: (context) => EditProfile(idUser: widget.idUser,),
                                       ),
                                     );
                                   },
@@ -190,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HistoryReport(),
+                                        builder: (context) => HistoryReport(idUser: "9"),
                                       ),
                                     );
                                   },

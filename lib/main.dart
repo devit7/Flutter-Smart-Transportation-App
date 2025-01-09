@@ -12,6 +12,7 @@ import 'package:tugas_akhir/profile_page.dart';
 import 'package:tugas_akhir/register_page.dart';
 import 'package:tugas_akhir/report_page.dart';
 import 'package:tugas_akhir/transaksi_page.dart';
+import 'package:tugas_akhir/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TransaksiPage(idUser: "9"),
+      home: WelcomePage(),
       // home: HistoryJourney(idUser: "9"),
     );
   }

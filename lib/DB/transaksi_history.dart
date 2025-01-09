@@ -14,7 +14,7 @@ class TransaksiHistory {
     try {
       var response = await client.get(url);
       if (response.statusCode == 200) {
-        //print(response.body);
+        print("Response Body Transaksi Hist: " + response.body);
         return transaksiHistoryModelFromJson(response.body);
       } else {
         return null;

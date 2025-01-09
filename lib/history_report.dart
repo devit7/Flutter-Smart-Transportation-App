@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 import 'package:tugas_akhir/DB/report_history_api.dart';
 import 'package:tugas_akhir/model/report_history_model.dart';
 
 class HistoryReport extends StatefulWidget {
-  const HistoryReport({super.key});
+  const HistoryReport({super.key, required this.idUser});
+  final String idUser;
 
   @override
   State<HistoryReport> createState() => _HistoryReportState();
@@ -21,7 +24,7 @@ class _HistoryReportState extends State<HistoryReport> {
 
   void getReporthistory() {
     setState(() {
-      Reporthistory = reportHistory.getByIdUser(id: "9");
+      Reporthistory = reportHistory.getByIdUser(id: widget.idUser);
     });
   }
 
@@ -55,10 +58,10 @@ class _HistoryReportState extends State<HistoryReport> {
             itemBuilder: (context, index) {
               final report = reports[index];
               return ReportCard(
-                date: report.date ?? DateTime.now(),
-                title: report.title ?? "No Title",
-                content: report.description ?? "No Content",
-                imageUrl: report.imageUrl,
+                tanggal: report.tanggal,
+                judul: report.judul ?? "No Title",
+                deskripsi: report.deskripsi ?? "No Content",
+                file_media: report.file_media,
               );
             },
           );
@@ -69,19 +72,21 @@ class _HistoryReportState extends State<HistoryReport> {
 }
 
 class ReportCard extends StatelessWidget {
-  final DateTime date;
-  final String title;
-  final String content;
-  final String? imageUrl;
+  final String tanggal;
+  final String judul;
+  final String deskripsi;
+  final String? file_media;
 
   const ReportCard({
     super.key,
-    required this.date,
-    required this.title,
-    required this.content,
-    this.imageUrl,
+    required this.tanggal,
+    required this.judul,
+    required this.deskripsi,
+    this.file_media,
   });
-
+  String formatDateTime(DateTime dateTime){
+    return DateFormat('EEEE, dd, MMMM yyyy, hh:mm:ss a').format(dateTime);
+  }
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -92,7 +97,7 @@ class ReportCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Date : ${date.toLocal().toString().split(' ')[0]}', // Displaying the date in YYYY-MM-DD format
+              'Date : ${formatDateTime(DateTime.parse(tanggal))}', // Displaying the date in YYYY-MM-DD format
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -100,7 +105,7 @@ class ReportCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              title,
+              judul,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -108,16 +113,16 @@ class ReportCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              content,
+              deskripsi,
               style: const TextStyle(
                 fontSize: 14,
                 height: 1.5,
                 color: Colors.black54,
               ),
             ),
-            if (imageUrl != null) ...[
+            if (file_media != null) ...[
               const SizedBox(height: 8),
-              Image.network(imageUrl!),
+              Image.network("https://apibus.rngrelic.my.id/storage/" + file_media!),
             ],
           ],
         ),
