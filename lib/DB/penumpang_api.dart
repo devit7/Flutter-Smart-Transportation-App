@@ -12,7 +12,7 @@ class PenumpangApi {
   Future<dynamic> getById({required String id}) async {
     var url = Uri.parse("$baseUrl/$id");
     var response = await client.get(url);
-
+  
     if (response.statusCode == 200) {
       print(response.body);
 
