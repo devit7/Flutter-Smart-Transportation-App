@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_akhir/DB/transaksi_api.dart';
+import 'package:tugas_akhir/dashboard.dart';
+import 'package:tugas_akhir/konfirmasi_page.dart'; // Import KonfirmasiPage
 
 class TransaksiPage extends StatefulWidget {
   const TransaksiPage({Key? key}) : super(key: key);
@@ -12,19 +14,14 @@ class TransaksiPage extends StatefulWidget {
 class _TransaksiPageState extends State<TransaksiPage> {
   final TextEditingController idUserController = TextEditingController();
   final TextEditingController idJadwalController = TextEditingController();
-  final List<String> statusList = [
-    "success",
-    "cancel"
-  ]; // Nilai status disesuaikan
-  final List<String> statusPenumpangList = ["in", "out"];
+  final TextEditingController statusPenumpangController =
+      TextEditingController(text: "in");
+  final List<String> statusList = ["success", "cancel"];
   String? selectedStatus;
-  String? selectedStatusPenumpang;
   DateTime? selectedDate;
 
   Future<void> saveTransaction() async {
-    if (selectedStatus == null ||
-        selectedStatusPenumpang == null ||
-        selectedDate == null) {
+    if (selectedStatus == null || selectedDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please fill in all fields")),
       );
@@ -36,13 +33,22 @@ class _TransaksiPageState extends State<TransaksiPage> {
         idUser: idUserController.text,
         idJadwal: idJadwalController.text,
         status: selectedStatus!,
-        statusPenumpang: selectedStatusPenumpang!,
+        statusPenumpang: statusPenumpangController.text,
         tanggalTransaksi: selectedDate!,
       );
 
       if (response != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Transaction created successfully")),
+        );
+
+        // Navigate to KonfirmasiPage
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                KonfirmasiPage(id: "1"), // Gunakan ID transaksi
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -74,7 +80,23 @@ class _TransaksiPageState extends State<TransaksiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Transaksi")),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1A2A45),
+        title: const Text(
+          "Transaksi",
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Dashboard(idUser: "2",)));
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -83,6 +105,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
               controller: idUserController,
               decoration: const InputDecoration(
                 labelText: "ID User",
+                labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -91,6 +114,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
               controller: idJadwalController,
               decoration: const InputDecoration(
                 labelText: "ID Jadwal",
+                labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -100,7 +124,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
               items: statusList
                   .map((status) => DropdownMenuItem(
                         value: status,
-                        child: Text(status),
+                        child: Text(status,
+                            style: const TextStyle(color: Colors.black)),
                       ))
                   .toList(),
               onChanged: (value) {
@@ -110,34 +135,36 @@ class _TransaksiPageState extends State<TransaksiPage> {
               },
               decoration: const InputDecoration(
                 labelText: "Status",
+                labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
-            DropdownButtonFormField<String>(
-              value: selectedStatusPenumpang,
-              items: statusPenumpangList
-                  .map((statusPenumpang) => DropdownMenuItem(
-                        value: statusPenumpang,
-                        child: Text(statusPenumpang),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectedStatusPenumpang = value;
-                });
-              },
+            TextFormField(
+              controller: statusPenumpangController,
               decoration: const InputDecoration(
                 labelText: "Status Penumpang",
+                labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(),
               ),
+              enabled: false, // Disabled input
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: pickDate,
-              child: Text(selectedDate == null
-                  ? "Pilih Tanggal"
-                  : DateFormat("yyyy-MM-dd").format(selectedDate!)),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: const Color(0xFF1A2A45),
+                ),
+                onPressed: pickDate,
+                child: Text(
+                  selectedDate == null
+                      ? "Pilih Tanggal"
+                      : DateFormat("yyyy-MM-dd").format(selectedDate!),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(

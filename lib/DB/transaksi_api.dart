@@ -43,4 +43,29 @@ class TransaksiApi {
       throw Exception("Failed to create transaction: $e");
     }
   }
+
+  Future<bool> update(
+      {required String id, required String statusPenumpang}) async {
+    try {
+      final response = await http.put(
+        Uri.parse("$baseUrl/$id"),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "statusPenumpang": statusPenumpang,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print("Failed to update: ${response.body}");
+        return false;
+      }
+    } catch (e) {
+      print("Error: $e");
+      return false;
+    }
+  }
 }

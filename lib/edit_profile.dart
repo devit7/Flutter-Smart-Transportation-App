@@ -88,8 +88,9 @@ class _EditProfileState extends State<EditProfile> {
                               shape: BoxShape.circle),
                           child: ClipOval(
                               child: Image.network(
-                            'https://apibus.rngrelic.my.id/storage/' +
-                                penumpang.img!,
+                            penumpang.img == null
+                                ? "https://static.vecteezy.com/system/resources/previews/002/608/327/non_2x/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                : "http://apibus.rngrelic.my.id/storage/${penumpang.img}",
                             fit: BoxFit.cover,
                             width: 90,
                             height: 90,
@@ -259,8 +260,9 @@ class _EditProfileState extends State<EditProfile> {
                                                     height: 70,
                                                   )
                                                 : Image.network(
-                                                    'https://apibus.rngrelic.my.id/storage/' +
-                                                        penumpang.img!,
+                                                    penumpang.img == null
+                                                        ? "https://static.vecteezy.com/system/resources/previews/002/608/327/non_2x/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                                        : "http://apibus.rngrelic.my.id/storage/${penumpang.img}",
                                                     fit: BoxFit.cover,
                                                     width: 70,
                                                     height: 70,

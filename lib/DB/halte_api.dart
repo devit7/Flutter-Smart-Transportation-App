@@ -4,24 +4,19 @@ import 'package:http/http.dart';
 import 'package:tugas_akhir/Model/halte_api_model.dart';
 
 class HalteApi {
-  String baseUrl = "http://apibus.rngrelic.my.id/api/jhalte";
+  String baseUrl = "https://apibus.rngrelic.my.id/api/halte";
   var client = Client();
 
-  List<HalteApiModel> busList = [];
-
-  Future<dynamic> getHalte() async {
+  Future<dynamic> get() async {
     var url = Uri.parse(baseUrl);
-    final response = await client.get(url);
-    var data = jsonDecode(response.body);
+    var response = await client.get(url);
+
     if (response.statusCode == 200) {
-      // print("HalteApi.getBus() - jsonDecode");
-      // print(data['data']);
-      for (Map dataBus in data['data']) {
-        busList.add(HalteApiModel.fromJson(dataBus));
-      }
-      return busList;
+      // print(response.body);
+      final List<dynamic> jsonData = jsonDecode(response.body)["data"];
+      return jsonData.map((json) => HalteApiModel.fromJson(json)).toList();
     } else {
-      return busList;
+      return null;
     }
   }
 }
