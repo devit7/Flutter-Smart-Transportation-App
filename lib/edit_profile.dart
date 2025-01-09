@@ -22,6 +22,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController noTelpController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController imgController = TextEditingController();
+  final idProfile = "9";
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void getPenumpang() {
     setState(() {
-      futureDashboard = penumpangApi.getById(id: "9");
+      futureDashboard = penumpangApi.getById(id: idProfile);
       //print(futureDashboard.toString());
     });
   }
@@ -62,6 +63,7 @@ class _EditProfileState extends State<EditProfile> {
               }
 
               final penumpang = snapshot.data;
+              final noTell=penumpang.noTelp;
               nameController.text = penumpang.name ?? "";
               emailController.text = penumpang.email ?? "";
               noTelpController.text = penumpang.noTelp ?? "";
@@ -88,8 +90,9 @@ class _EditProfileState extends State<EditProfile> {
                               shape: BoxShape.circle),
                           child: ClipOval(
                               child: Image.network(
-                            'https://apibus.rngrelic.my.id/storage/' +
-                                penumpang.img!,
+                            penumpang.img == null
+                                ? "https://static.vecteezy.com/system/resources/previews/002/608/327/non_2x/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                : "http://apibus.rngrelic.my.id/storage/${penumpang.img}",
                             fit: BoxFit.cover,
                             width: 90,
                             height: 90,
@@ -259,8 +262,9 @@ class _EditProfileState extends State<EditProfile> {
                                                     height: 70,
                                                   )
                                                 : Image.network(
-                                                    'https://apibus.rngrelic.my.id/storage/' +
-                                                        penumpang.img!,
+                                                    penumpang.img == null
+                                                        ? "https://static.vecteezy.com/system/resources/previews/002/608/327/non_2x/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg"
+                                                        : "http://apibus.rngrelic.my.id/storage/${penumpang.img}",
                                                     fit: BoxFit.cover,
                                                     width: 70,
                                                     height: 70,
@@ -329,7 +333,7 @@ class _EditProfileState extends State<EditProfile> {
                                         } */
 
                                         await penumpangApi.update(
-                                          id: "2",
+                                          id: idProfile,
                                           name: nameController.text,
                                           noTelp: noTelpController.text,
                                           alamat: alamatController.text,
