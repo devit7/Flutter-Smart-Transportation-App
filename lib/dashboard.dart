@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/DB/halte_api.dart';
 import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
@@ -12,7 +13,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
 
   Future<dynamic>? futureDashboard;
+  Future<dynamic>? futureHalte;
   final penumpangApi = PenumpangApi();
+  final listHalte = HalteApi();
   
   @override
   void initState(){
@@ -22,6 +25,7 @@ class _DashboardState extends State<Dashboard> {
   void getPenumpang() {
     setState(() {
       futureDashboard = penumpangApi.getById(id: "7");
+      futureHalte = listHalte.getHalte();
     });
   }
 
@@ -251,39 +255,60 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     //HALTE ITEM!!!
-                    ListView.separated(itemBuilder: itemBuilder, separatorBuilder: separatorBuilder, itemCount: itemCount)
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                    ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) => const Divider(), 
+                      itemCount: 2, 
+                      itemBuilder: (BuildContext context, int index){
+                        return Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.asset("assets/images/yelan.jpg", 
+                                          width: 80,),
+                                      )
+                                    ],
+                                  ),
+                                );
+                      },),
+                    // Container(
+                    //   margin: EdgeInsets.only(bottom: 5),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(20),
                         
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset("assets/images/yelan.jpg", 
-                              width: 80,),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset("assets/images/yelan.jpg", 
-                              width: 80,),
-                          )
-                        ],
-                      ),
-                    ),
+                    //   ),
+                    //   child: Row(
+                    //     children: [
+                    //       ClipRRect(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         child: Image.asset("assets/images/yelan.jpg", 
+                    //           width: 80,),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(20)
+                    //   ),
+                    //   child: Row(
+                    //     children: [
+                    //       ClipRRect(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         child: Image.asset("assets/images/yelan.jpg", 
+                    //           width: 80,),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               )

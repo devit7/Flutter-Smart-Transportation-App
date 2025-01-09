@@ -18,6 +18,7 @@ class _BotNavbarState extends State<BotNavbar> {
   static const List<Widget> _pages = <Widget>[
     Dashboard(),
     HistoryJourney(),
+    ProfilePage(),
   ];
   
   @override
