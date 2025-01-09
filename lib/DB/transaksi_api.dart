@@ -44,23 +44,29 @@ class TransaksiApi {
     }
   }
 
-  Future<bool> update(
-      {required String id, required String statusPenumpang}) async {
+  Future<bool> update({
+    required String id,
+    required String statusPenumpang,
+  }) async {
     try {
       final response = await http.put(
-        Uri.parse("$baseUrl/$id"),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        Uri.parse(
+            "https://apibus.rngrelic.my.id/api/transaksi/status-penumpang/$id"),
         body: jsonEncode({
+          "_method": "PUT",
           "statusPenumpang": statusPenumpang,
         }),
+        headers: {
+          "Content-Type": "application/json", // Tambahkan header JSON
+        },
       );
 
       if (response.statusCode == 200) {
+        print("Update successful: ${response.body}");
         return true;
       } else {
-        print("Failed to update: ${response.body}");
+        print("Failed to update. Status code: ${response.statusCode}");
+        print("Response body: ${response.body}");
         return false;
       }
     } catch (e) {

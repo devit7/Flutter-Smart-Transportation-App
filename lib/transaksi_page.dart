@@ -43,13 +43,13 @@ class _TransaksiPageState extends State<TransaksiPage> {
         );
 
         // Navigate to KonfirmasiPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                KonfirmasiPage(id: "1"), // Gunakan ID transaksi
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) =>
+        //         KonfirmasiPage(id: "1"), // Gunakan ID transaksi
+        //   ),
+        // );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Failed to create transaction")),
@@ -93,7 +93,15 @@ class _TransaksiPageState extends State<TransaksiPage> {
           ),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Dashboard(idUser: widget.idUser,)));
+<<<<<<< HEAD
+                context, MaterialPageRoute(builder: (context) => Dashboard(idUser: "2",)));
+=======
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Dashboard(
+                          idUser: widget.idUser,
+                        )));
+>>>>>>> 1d10732e89af0c3c309c989bca051c4455d521b0
           },
         ),
       ),

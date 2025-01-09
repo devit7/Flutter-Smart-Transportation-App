@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 
 class PenumpangApi {
+
   String baseUrl = "http://apibus.rngrelic.my.id/api/users";
-  //String baseUrl = "https://0c0f-182-253-50-62.ngrok-free.app/api/users";
   var client = Client();
 
   Future<dynamic> getById({required String id}) async {

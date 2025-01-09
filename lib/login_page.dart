@@ -18,10 +18,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthApi _apiHandler = AuthApi();
+  bool _isLoading = false;
 
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        duration: const Duration(milliseconds: 800),
         content: Text(message),
       ),
     );
@@ -139,19 +141,36 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 35),
               ElevatedButton(
-                onPressed: () async {
+                onPressed: _isLoading ? null : () async {
+
+                  FocusScope.of(context).unfocus();
+
                   String email = _emailController.text;
                   String password = _passwordController.text;
-                  dynamic result = await _apiHandler.login(email: email, password: password);
+                  
                   if (email.isEmpty || password.isEmpty) {
                     _showMessage('jangan lupa isi email and password ya!');
                     return;
                   }
+
+                  setState(() {
+                    _isLoading = true;
+                  });
+
+                  dynamic result = await _apiHandler.login(
+                        email: email, password: password);
+
+                  setState(() {
+                    _isLoading = false;
+                  });
+
                   if(result != null){
+
                     _showMessage('Login successful!');
+                    // Delay 1.24 seconds
+                    await Future.delayed(Duration(seconds: 1, milliseconds: 240));
+                    // print('User Data: ${result}');
                     // Navigate to the next page or perform your login action
-                    print('User Data: ${result}');
-                    // Example of navigation:
                     Navigator.push(context, MaterialPageRoute(builder: (context) => BotNavbar(idUser: result.id)));
                   } else {
                     _showMessage("Invalid email or password ");
@@ -164,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                   minimumSize: Size(300, 60),
                   backgroundColor: Color.fromARGB(255, 33, 53, 85),
                 ),
-                child: Text(
+                child: _isLoading ? CircularProgressIndicator() : Text(
                   'Sign In',
                   style: TextStyle(
                     color: Colors.white,
