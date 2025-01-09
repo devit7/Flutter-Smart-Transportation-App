@@ -1,22 +1,27 @@
 import 'dart:async';
 import 'dart:convert';
-// import 'dart:io';
-// import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:tugas_akhir/model/bus_api_model.dart';
 
 class BusApi {
   String baseUrl = "http://apibus.rngrelic.my.id/api/jadwal";
   var client = Client();
+
+  List<BusApiModel> busList = [];
+
   Future<dynamic> getBus() async {
     var url = Uri.parse(baseUrl);
-    var response = await client.get(url); 
+    final response = await client.get(url);
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      // print("BusApi.getBus()");
-      // print(response.body);
-      return BusApiModel.fromJson(jsonDecode(response.body));
+      // print("BusApi.getBus() - jsonDecode");
+      // print(data['data']);
+      for (Map dataBus in data['data']) {
+        busList.add(BusApiModel.fromJson(dataBus));
+      }
+      return busList;
     } else {
-      return null;
-    } 
+      return busList;
+    }
   }
 }

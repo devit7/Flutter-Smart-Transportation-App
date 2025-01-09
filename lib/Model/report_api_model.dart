@@ -1,22 +1,25 @@
 class ReportApiModel {
-  final String title;
-  final String description;
-  final DateTime date;
-  final String imageUrl;
+  final String idUser;
+  final String judul;
+  final String deskripsi;
+  final DateTime tanggal;
+  final String fileMedia;
 
   ReportApiModel({
-    required this.title,
-    required this.description,
-    required this.date,
-    required this.imageUrl,
+    required this.idUser,
+    required this.judul,
+    required this.deskripsi,
+    required this.tanggal,
+    required this.fileMedia,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'title': title,
-      'description': description,
-      'date': date.toIso8601String(),
-      'imageUrl': imageUrl,
+      'id_user': idUser,
+      'judul': judul,
+      'deskripsi': deskripsi,
+      'tanggal': tanggal.toIso8601String(),
+      'file_media': fileMedia,
     };
   }
 }
