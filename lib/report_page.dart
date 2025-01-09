@@ -48,6 +48,10 @@ class _AddReportPageState extends State<AddReportPage> {
         _titleController.text.isEmpty ||
         _descriptionController.text.isEmpty) {
       // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("Please fill all fields and select a date.")),
+      );
       return;
     }
 
@@ -55,13 +59,21 @@ class _AddReportPageState extends State<AddReportPage> {
       judul: _titleController.text,
       deskripsi: _descriptionController.text,
       tanggal: _selectedDate!,
-      file_media: _selectedImage,
+      idUser: "user_id_placeholder", // Replace with actual user ID
+      fileMedia: _selectedImage,
     );
 
     if (response != null && response['success'] == true) {
-      // Handle success (e.g., show a success message, navigate back, etc.)
+      // Handle success
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Report submitted successfully!")),
+      );
+      Navigator.pop(context); // Navigate back or reset the form
     } else {
-      // Handle failure (e.g., show an error message)
+      // Handle failure
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response['message'] ?? "An error occurred")),
+      );
     }
   }
 
@@ -78,7 +90,8 @@ class _AddReportPageState extends State<AddReportPage> {
         ),
         backgroundColor: Colors.blue.shade900,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        // Allow scrolling
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +168,7 @@ class _AddReportPageState extends State<AddReportPage> {
                 fit: BoxFit.cover,
               ),
             ],
-            const Spacer(),
+            const SizedBox(height: 16), // Add some space before the button
             ElevatedButton(
               onPressed: _submitReport,
               style: ElevatedButton.styleFrom(
