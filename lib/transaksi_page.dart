@@ -92,8 +92,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Dashboard()));
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => Dashboard()));
           },
         ),
       ),
