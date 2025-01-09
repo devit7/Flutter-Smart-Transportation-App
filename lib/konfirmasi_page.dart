@@ -3,7 +3,9 @@ import 'package:tugas_akhir/DB/transaksi_api.dart';
 import 'package:tugas_akhir/transaksi_page.dart';
 
 class KonfirmasiPage extends StatefulWidget {
-  const KonfirmasiPage({Key? key}) : super(key: key);
+  final String id;
+
+  const KonfirmasiPage({Key? key, required this.id}) : super(key: key);
 
   @override
   _KonfirmasiPageState createState() => _KonfirmasiPageState();
@@ -19,7 +21,6 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
     });
 
     try {
-      const String id = "19";
       // const String idUser = "36";
       // const String idJadwal = "1";
       // const String status = "success";
@@ -27,11 +28,7 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
       const String statusPenumpang = "out";
 
       final success = await TransaksiApi().update(
-        id: id,
-        // idUser: idUser,
-        // idJadwal: idJadwal,
-        // status: status,
-        // tanggalTransaksi: tanggalTransaksi,
+        id: widget.id,
         statusPenumpang: statusPenumpang,
       );
 
