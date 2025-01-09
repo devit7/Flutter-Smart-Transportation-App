@@ -17,6 +17,7 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
 
   // Fungsi untuk konfirmasi transaksi
   Future<void> confirmTransaction() async {
+   
     setState(() {
       isLoading = true;
     });
@@ -30,13 +31,13 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
       );
 
       if (success) {
+        NotificationServices.showNotification(
+          title: "Transaksi Berhasil",
+          body: "Transaksi berhasil dikonfirmasi",
+          payload: "transaksi",
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Transaction confirmed successfully")),
-        );
-        NotificationServices.showNotification(
-          title: 'Konfirmasi Sukses',
-          body: 'Transaksi dengan ID ${widget.id} berhasil dikonfirmasi.',
-          payload: widget.id,
         );
         // Navigator.pop(context);
       } else {
