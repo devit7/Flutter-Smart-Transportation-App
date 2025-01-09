@@ -4,8 +4,8 @@ class NotificationServices {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-// untuk menangani notifikasi yang diterima 
-  static Future<void> onDidReceiveNotification( 
+// untuk menangani notifikasi yang diterima
+  static Future<void> onDidReceiveNotification(
       NotificationResponse notificationResponse) async {
     print(notificationResponse);
   }
@@ -26,7 +26,6 @@ class NotificationServices {
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
   }
-
 
   static Future<void> showNotification({
     required String title,
@@ -50,6 +49,6 @@ class NotificationServices {
       body,
       platformChannelSpecifics,
       payload: payload,
-  );
-  }
+    );
+  }
 }
