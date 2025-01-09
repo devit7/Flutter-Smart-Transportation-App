@@ -47,9 +47,9 @@ class _DashboardState extends State<Dashboard> {
           }
 
           final penumpang = snapshot.data;
-          final halte = snapshot.data;
-          print(halte.toString());
-          print(penumpang.toString());
+          //final halte = snapshot.data;
+          //print(halte.toString());
+          //print(penumpang.toString());
 
           return Column(
             children: [
