@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
                       ClipOval(
                         child:
                           Image.network(
-                          "https://apibus.rngrelic.my.id/storage/"+penumpang.img,
+                            penumpang.img == null ? "https://static.vecteezy.com/system/resources/previews/002/608/327/non_2x/mobile-application-avatar-web-button-menu-digital-silhouette-style-icon-free-vector.jpg" : "http://apibus.rngrelic.my.id/storage/${penumpang.img}",
                           fit: BoxFit.cover,
                           width: 80,)
                       ),
@@ -99,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Row(
                   children: [
                     Icon(Icons.location_on, size: 30,color: Color.fromARGB(255, 223, 37, 96),),
-                    Text(penumpang.alamat, 
+                    Text(penumpang.alamat ?? "-",
                     style: TextStyle(
                       fontFamily: 'FigtreeBold',
                       fontWeight: FontWeight.bold,
