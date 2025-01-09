@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/DB/report_history_api.dart';
+import 'package:tugas_akhir/model/report_history_model.dart';
 
 class HistoryReport extends StatefulWidget {
   const HistoryReport({super.key});
@@ -8,37 +10,57 @@ class HistoryReport extends StatefulWidget {
 }
 
 class _HistoryReportState extends State<HistoryReport> {
-  final List<Map<String, String>> reportData = [
-    {
-      'date': '15/8/2024',
-      'title': 'Pengemudi Mengantuk',
-      'content':
-          'Mengantuk saat mengemudi dapat berakibat fatal. Studi menunjukkan bahwa tingkat kecelakaan yang disebabkan oleh pengemudi yang mengantuk hampir setara dengan kecelakaan akibat pengemudi mabuk.',
-    },
-    {
-      'date': '20/8/2024',
-      'title': 'Kekerasan Verbal',
-      'content':
-          'Kekerasan verbal adalah bentuk kekerasan yang menggunakan kata-kata untuk menyakiti, merendahkan, atau mengintimidasi orang lain. Ini bisa terjadi dalam berbagai konteks, seperti di rumah, sekolah, tempat kerja, atau bahkan di ruang publik. Kekerasan verbal dapat berupa penghinaan, ancaman, ejekan, atau komentar yang merendahkan.',
-    },
-  ];
+  Future<dynamic>? Reporthistory;
+  final reportHistory = ReportHistoryApi();
+
+  @override
+  void initState() {
+    super.initState();
+    getReporthistory();
+  }
+
+  void getReporthistory() {
+    setState(() {
+      Reporthistory = reportHistory.getByIdUser(id: "9");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'History Report',
+        backgroundColor: const Color.fromARGB(255, 26, 42, 69),
+        title: const Text('History Report'),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
       ),
-      body: ListView.builder(
-        itemCount: reportData.length,
-        itemBuilder: (context, index) {
-          final item = reportData[index];
-          return ReportCard(
-            date: item['date']!,
-            title: item['title']!,
-            content: item['content']!,
+      body: FutureBuilder<dynamic>(
+        future: Reporthistory,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No Data Found'));
+          }
+
+          final List<ReportHistoryApiModel> reports = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: reports.length,
+            itemBuilder: (context, index) {
+              final report = reports[index];
+              return ReportCard(
+                date: report.date ?? DateTime.now(),
+                title: report.title ?? "No Title",
+                content: report.description ?? "No Content",
+                imageUrl: report.imageUrl,
+              );
+            },
           );
         },
       ),
@@ -47,15 +69,17 @@ class _HistoryReportState extends State<HistoryReport> {
 }
 
 class ReportCard extends StatelessWidget {
-  final String date;
+  final DateTime date;
   final String title;
   final String content;
+  final String? imageUrl;
 
   const ReportCard({
     super.key,
     required this.date,
     required this.title,
     required this.content,
+    this.imageUrl,
   });
 
   @override
@@ -68,7 +92,7 @@ class ReportCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Date : $date',
+              'Date : ${date.toLocal().toString().split(' ')[0]}', // Displaying the date in YYYY-MM-DD format
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -91,6 +115,10 @@ class ReportCard extends StatelessWidget {
                 color: Colors.black54,
               ),
             ),
+            if (imageUrl != null) ...[
+              const SizedBox(height: 8),
+              Image.network(imageUrl!),
+            ],
           ],
         ),
       ),
