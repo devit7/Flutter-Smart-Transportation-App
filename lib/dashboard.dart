@@ -7,6 +7,7 @@ import 'package:tugas_akhir/history_journey.dart';
 import 'package:tugas_akhir/list_bus_api.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 import 'package:tugas_akhir/report_page.dart';
+import 'package:tugas_akhir/edit_profile.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key, required this.idUser});
@@ -205,6 +206,12 @@ class _DashboardState extends State<Dashboard> {
                             child: TextButton(
                                 onPressed: () {
                                   penumpangApi.getById(id: "2");
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return EditProfile(
+                                      idUser: penumpang.id,
+                                    );
+                                  }));
                                 },
                                 child: Text(
                                   "Change Address",
