@@ -4,6 +4,7 @@ import 'package:tugas_akhir/DB/penumpang_api.dart';
 import 'package:tugas_akhir/Model/halte_api_model.dart';
 import 'package:tugas_akhir/Model/transaksi_hisotry.dart';
 import 'package:tugas_akhir/history_journey.dart';
+import 'package:tugas_akhir/list_bus_api.dart';
 import 'package:tugas_akhir/model/penumpang_api_model.dart';
 import 'package:tugas_akhir/report_page.dart';
 
@@ -48,12 +49,12 @@ class _DashboardState extends State<Dashboard> {
             } else if (snapshot.data == null) {
               return const Center(child: Text('No Data Found'));
             }
-        
+
             final penumpang = snapshot.data;
             //final halte = snapshot.data;
             //print(halte.toString());
             //print(penumpang.toString());
-        
+
             return Column(
               children: [
                 //Profile
@@ -233,7 +234,11 @@ class _DashboardState extends State<Dashboard> {
                             ]),
                             child: IconButton(
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryJourney(idUser: widget.idUser)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HistoryJourney(
+                                              idUser: widget.idUser)));
                                 },
                                 icon: Icon(
                                   Icons.history_edu,
@@ -257,7 +262,11 @@ class _DashboardState extends State<Dashboard> {
                             ]),
                             child: IconButton(
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddReportPage()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AddReportPage()));
                                 },
                                 icon: Icon(
                                   Icons.calendar_month,
@@ -310,7 +319,7 @@ class _DashboardState extends State<Dashboard> {
                             return const Center(
                                 child: Text('Halte tidak tersedia'));
                           }
-        
+
                           final halte = snapshot.data!;
                           return ListView.separated(
                             shrinkWrap: true,
@@ -328,7 +337,12 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                                 child: ListTile(
                                   onTap: () {
-                                    
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ListBusApi(
+                                                idUser: widget.idUser,
+                                                idHalte: itemHalte.id)));
                                   },
                                   leading: ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
@@ -344,7 +358,7 @@ class _DashboardState extends State<Dashboard> {
                           );
                         },
                       ),
-        
+
                       // ListView.separated(
                       //   final halte = halte[index];
                       //   separatorBuilder: (context, index) => const
@@ -371,7 +385,7 @@ class _DashboardState extends State<Dashboard> {
                       //     );
                       //   }
                       // ,itemCount: halte.length),
-        
+
                       // Container(
                       //   decoration: BoxDecoration(
                       //       color: Colors.white,
